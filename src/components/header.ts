@@ -23,12 +23,26 @@ export function buildHeader(): HTMLElement {
     descriptiontext.setAttribute("class", "description-text");
     descriptiontext.textContent = "Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses";
 
+    const searchBarContainer = document.createElement("form");
+    searchBarContainer.setAttribute("class", "searchbar-container");
+
+    const searchBarInput = document.createElement("input");
+    searchBarInput.setAttribute("class", "searchbar-input");
+    searchBarInput.setAttribute("placeholder", "Rechercher une recette, un ingrédient...");
+
+    const searchBarIcone = document.createElement("img");
+    searchBarIcone.setAttribute("class", "searchbar-icone");
+    searchBarIcone.setAttribute("src", "assets/icones/Group 4.svg");
+
     body?.appendChild(headerContainer);
     headerContainer.appendChild(headerTitleContainer);
     headerTitleContainer.appendChild(mainTitle);
     headerTitleContainer.appendChild(logo);
     headerContainer.appendChild(descriptionTextContainer);
     descriptionTextContainer.appendChild(descriptiontext);
+    headerContainer.appendChild(searchBarContainer);
+    searchBarContainer.appendChild(searchBarInput);
+    searchBarContainer.appendChild(searchBarIcone);
 
     return headerContainer;
 }
