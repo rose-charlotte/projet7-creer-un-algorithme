@@ -3,6 +3,9 @@ export function buildHeader(): HTMLElement {
     const headerContainer = document.createElement("header");
     headerContainer.setAttribute("class", "header-container");
 
+    const mainHeader = document.createElement("div");
+    mainHeader.setAttribute("class", "main-header");
+
     const headerTitleContainer = document.createElement("div");
     headerTitleContainer.ariaLabel = "Enseigne les petits plats";
     headerTitleContainer.setAttribute("class", "header-title-container");
@@ -34,15 +37,20 @@ export function buildHeader(): HTMLElement {
     searchBarIcone.setAttribute("class", "searchbar-icone");
     searchBarIcone.setAttribute("src", "assets/icones/Group 4.svg");
 
+    const footerHeader = document.createElement("nav");
+    footerHeader.setAttribute("class", "footer-header");
+
     body?.appendChild(headerContainer);
-    headerContainer.appendChild(headerTitleContainer);
+    headerContainer.appendChild(mainHeader);
+    mainHeader.appendChild(headerTitleContainer);
     headerTitleContainer.appendChild(mainTitle);
     headerTitleContainer.appendChild(logo);
-    headerContainer.appendChild(descriptionTextContainer);
+    mainHeader.appendChild(descriptionTextContainer);
     descriptionTextContainer.appendChild(descriptiontext);
-    headerContainer.appendChild(searchBarContainer);
+    mainHeader.appendChild(searchBarContainer);
     searchBarContainer.appendChild(searchBarInput);
     searchBarContainer.appendChild(searchBarIcone);
+    headerContainer.appendChild(footerHeader);
 
     return headerContainer;
 }

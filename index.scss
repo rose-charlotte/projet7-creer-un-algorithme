@@ -1,7 +1,12 @@
 $yellow-color: #ffd15b;
 
 .header-container {
-    height: 830px;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-header {
+    height: 746px;
     display: flex;
     flex-direction: column;
     align-content: flex-start;
