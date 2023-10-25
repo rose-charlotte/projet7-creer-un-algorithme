@@ -1,0 +1,71 @@
+$yellow-color: #ffd15b;
+
+.header-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-header {
+    height: 746px;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    background-image: url("assets/images/lampos-aritonang-24gR_9lCdes-unsplash 1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.header-title-container {
+    display: flex;
+    margin-left: 69px;
+    margin-top: 80px;
+    gap: 5px;
+}
+
+.description-text-container {
+    display: flex;
+    width: 895px;
+    height: 132px;
+    position: relative;
+    top: 20%;
+    left: 26%;
+    line-height: 70px;
+}
+
+.description-text {
+    color: $yellow-color;
+    text-transform: uppercase;
+    font-family: "Anton";
+    font-size: 44px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.searchbar-container {
+    display: flex;
+    background-color: white;
+    width: 954px;
+    height: 62px;
+    position: relative;
+    top: 33%;
+    left: 24%;
+    padding: 10px;
+    border-radius: 11px;
+}
+.searchbar-input {
+    width: 93%;
+    padding: 1%;
+    border: none;
+}
+.searchbar-input:focus {
+    outline: none;
+}
+.searchbar-icone {
+    background-color: black;
+    width: 50px;
+    margin: 3px;
+    border-radius: 11px;
+    padding: 6px;
+}
