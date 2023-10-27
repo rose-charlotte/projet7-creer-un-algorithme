@@ -1,6 +1,6 @@
 import { buildHeader } from "./components/header";
 
-function buildPage() {
+function buildPage(): HTMLElement {
     const header = buildHeader();
 
     return header;
