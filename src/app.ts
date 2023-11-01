@@ -1,7 +1,15 @@
-import { HeaderContainer } from "./components/wcHeader";
+// import { HeaderContainer } from "./components/wcHeader";
+// import { Recipe } from "./components/wcRecipe";
 
-class app extends HTMLElement {
-    header = new HeaderContainer();
-}
+// class App extends HTMLElement {
+//     constructor() {
+//         super();
+//         const header = new HeaderContainer();
+//         const recipe = new Recipe("Limonade de Coco", "Mettre eau dans sucre");
 
-customElements.define("app-element", app);
+//         this.appendChild(header);
+//         this.appendChild(recipe);
+//     }
+// }
+
+// customElements.define("app-element", App);

@@ -69,3 +69,42 @@ $yellow-color: #ffd15b;
     border-radius: 11px;
     padding: 6px;
 }
+
+//css for the component RECIPE
+.recipe-container {
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+    height: 731px;
+    border: 1px solid black;
+    border-radius: 21px;
+}
+
+.recipe-img {
+    width: 380px;
+    height: 253px;
+    border-top-right-radius: 21px;
+    border-top-left-radius: 21px;
+}
+
+.recipe-title {
+    color: black;
+    font-family: "Anton";
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.second-title {
+    font-family: "Manrope";
+    font-size: 12px;
+    font-weight: 700;
+    color: #7a7a7a;
+    text-transform: uppercase;
+}
+
+.recipe-instructions {
+    color: black;
+    font-family: "Manrope";
+    font-size: 14px;
+    font-weight: 400;
+}
