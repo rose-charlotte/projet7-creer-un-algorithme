@@ -1,11 +1,11 @@
+import { buildFilters } from "./components/filters";
 import { buildHeader } from "./components/header";
-//import { buildRecipes } from "./components/recipes";
+import { buildRecipeList } from "./components/recipeList";
 
-function buildPage(): HTMLElement {
-    const header = buildHeader();
-    //  const recipes = buildRecipes("Limonade Coco", "Mettre eau dans sucre");
-
-    return header;
+function buildPage(): void {
+    buildHeader();
+    buildFilters();
+    buildRecipeList();
 }
 
 buildPage();
