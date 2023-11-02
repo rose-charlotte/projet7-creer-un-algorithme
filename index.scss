@@ -1,5 +1,11 @@
 $yellow-color: #ffd15b;
 
+body {
+    margin: unset;
+    display: flex;
+    flex-direction: column;
+}
+
 .header-container {
     display: flex;
     flex-direction: column;
@@ -107,4 +113,21 @@ $yellow-color: #ffd15b;
     font-family: "Manrope";
     font-size: 14px;
     font-weight: 400;
+}
+
+.ingredient-list {
+    font-family: "Manrope";
+    font-size: 14px;
+    font-weight: 500;
+    list-style-type: none;
+}
+
+.recipeList-container {
+    background-color: #e5e5e5;
+    display: flex;
+    flex-direction: row;
+    gap: 102px;
+    flex-wrap: wrap;
+    padding: 109px;
+    justify-content: center;
 }
