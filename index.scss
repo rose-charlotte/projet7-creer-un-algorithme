@@ -113,6 +113,35 @@ body {
     font-family: "Manrope";
     font-size: 14px;
     font-weight: 400;
+    overflow: hidden;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    margin: 0;
+}
+
+.ingredient-list {
+    font-family: "Manrope";
+    font-size: 14px;
+    font-weight: 500;
+    list-style-type: none;
+}
+
+.recipeList-container {
+    background-color: #e5e5e5;
+    display: flex;
+    flex-direction: row;
+    gap: 102px;
+    flex-wrap: wrap;
+    padding: 109px;
+    justify-content: center;
+}
+
+.ingredientList-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+    gap: 20px;
 }
 
 .ingredient-list {

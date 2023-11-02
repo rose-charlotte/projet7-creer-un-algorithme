@@ -1,30 +1,5 @@
-interface Recipe {
-    id: number;
-    image: string;
-    name: string;
-    servings: number;
-    ingredients: (
-        | {
-              ingredient: string;
-              quantity: number;
-              unit: string;
-          }
-        | {
-              ingredient: string;
-              quantity: number;
-              unit?: undefined;
-          }
-        | {
-              ingredient: string;
-              quantity?: undefined;
-              unit?: undefined;
-          }
-    )[];
-    time: number;
-    description: string;
-    appliance: string;
-    ustensils: string[];
-}
+import { Ingredient } from "../types/Ingredient";
+import { Recipe } from "../types/Recipe";
 
 export function buildRecipes(recipe: Recipe): HTMLElement {
     const recipeListContainer = document.querySelector("recipeList-container");
@@ -52,10 +27,9 @@ export function buildRecipes(recipe: Recipe): HTMLElement {
     ingredientsTitle.setAttribute("class", "second-title");
     ingredientsTitle.textContent = "ingrédient";
 
-    const ingredientListContainer = document.createElement("ul");
-
     const ingredientsList = recipe.ingredients;
-
+    const ingredientListContainer = document.createElement("div");
+    ingredientListContainer.className = "ingredientList-container";
     ingredientsList.forEach(ingredient => {
         const ingredientList = buildIngredientsList(ingredient);
         ingredientListContainer.appendChild(ingredientList);
@@ -67,21 +41,32 @@ export function buildRecipes(recipe: Recipe): HTMLElement {
     recipeContainer.appendChild(recetteTitle);
     recipeContainer.appendChild(recipeInstructions);
     recipeContainer.appendChild(ingredientsTitle);
-    recipeContainer.appendChild(ingredientsTitle);
     recipeContainer.appendChild(ingredientListContainer);
 
     return recipeContainer;
 }
 
-interface Ingredient {
-    ingredient: string;
-    quantity?: number | undefined;
-    unit?: string | undefined;
-}
-
 function buildIngredientsList(ingredient: Ingredient): HTMLElement {
+    const container = document.createElement("div");
     const li = document.createElement("li");
     li.className = "ingredient-list";
     li.textContent = ingredient.ingredient;
-    return li;
+
+    const ingredientsComplement = document.createElement("p");
+
+    const complements: string[] = [];
+
+    if (ingredient.quantity !== undefined) {
+        complements.push(ingredient.quantity.toString());
+    }
+
+    if (ingredient.unit) {
+        complements.push(ingredient.unit);
+    }
+
+    ingredientsComplement.textContent = complements.join(" ");
+
+    container.appendChild(li);
+    container.appendChild(ingredientsComplement);
+    return container;
 }
