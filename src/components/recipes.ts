@@ -7,6 +7,8 @@ export function buildRecipes(recipe: Recipe): HTMLElement {
     const recipeContainer = document.createElement("article");
     recipeContainer.setAttribute("class", "recipe-container");
 
+    const imgContainer = document.createElement("div");
+    imgContainer.className = "img-container";
     const img = document.createElement("img");
     img.setAttribute("class", "recipe-img");
     img.src = `assets/images/photo/${recipe.image}`;
@@ -36,7 +38,8 @@ export function buildRecipes(recipe: Recipe): HTMLElement {
     });
 
     recipeListContainer?.appendChild(recipeContainer);
-    recipeContainer.appendChild(img);
+    recipeContainer.appendChild(imgContainer);
+    imgContainer.appendChild(img);
     recipeContainer.appendChild(recipeTitle);
     recipeContainer.appendChild(recetteTitle);
     recipeContainer.appendChild(recipeInstructions);
@@ -53,6 +56,7 @@ function buildIngredientsList(ingredient: Ingredient): HTMLElement {
     li.textContent = ingredient.ingredient;
 
     const ingredientsComplement = document.createElement("p");
+    ingredientsComplement.className = "ingredient-complement";
 
     const complements: string[] = [];
 
