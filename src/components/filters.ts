@@ -4,7 +4,7 @@ export function buildFilters(): HTMLElement {
     filtersContainer.className = "filters-container";
     const filter1 = document.createElement("div");
     filter1.className = "filter";
-    filter1.textContent = "Ingrédeients";
+    filter1.textContent = "Ingrédients";
     const filter2 = document.createElement("div");
     filter2.className = "filter";
     filter2.textContent = "Appareils";
