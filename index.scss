@@ -193,12 +193,35 @@ body {
 
 .filter {
     width: 195px;
-    height: 56px;
-    display: flex;
     justify-content: center;
     align-items: center;
     background-color: #fff;
     font-family: "Manrope";
     font-size: 16px;
     font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.filter::-webkit-scrollbar {
+    display: none;
+}
+.filter-title {
+    display: flex;
+    flex-direction: row;
+    margin: 17px;
+}
+
+.filter-modal {
+    width: 195px;
+    height: 300px;
+}
+
+.arrow-down {
+    padding-left: 63px;
+}
+
+.searchbar-item-list {
+    font-size: 14px;
 }
