@@ -1,6 +1,4 @@
-import { Recipe } from "../../src/types/Recipe";
-
-export const recipes: Recipe[] = [
+export const recipes = [
     {
         id: 1,
         image: "Recette01.jpg",
@@ -213,7 +211,7 @@ export const recipes: Recipe[] = [
             },
             {
                 ingredient: "Oeuf",
-                quantity: 2,
+                quantity: "2",
             },
             {
                 ingredient: "Crème fraîche",
@@ -259,7 +257,7 @@ export const recipes: Recipe[] = [
             },
             {
                 ingredient: "Beurre",
-                quantity: 30,
+                quantity: "30",
                 unit: "grammes",
             },
             {
@@ -281,7 +279,7 @@ export const recipes: Recipe[] = [
         ingredients: [
             {
                 ingredient: "Noix",
-                quantity: 180,
+                quantity: "180",
                 unit: "grammes",
             },
             {
@@ -300,7 +298,7 @@ export const recipes: Recipe[] = [
             },
             {
                 ingredient: "Sucre en Poudre",
-                quantity: 110,
+                quantity: "110",
                 unit: "grammes",
             },
             {
@@ -357,7 +355,7 @@ export const recipes: Recipe[] = [
         ingredients: [
             {
                 ingredient: "Reblochon",
-                quantity: 1,
+                quantity: "1",
             },
             {
                 ingredient: "Pommes de terre",
@@ -449,7 +447,7 @@ export const recipes: Recipe[] = [
             },
             {
                 ingredient: "Eau",
-                quantity: 0.5,
+                quantity: "0.5",
                 unit: "tasses",
             },
         ],
