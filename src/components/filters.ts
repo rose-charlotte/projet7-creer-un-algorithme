@@ -1,21 +1,26 @@
-export function buildFilters(): HTMLElement {
-    const body = document.querySelector("body");
-    const filtersContainer = document.createElement("div");
-    filtersContainer.className = "filters-container";
-    const filter1 = document.createElement("div");
-    filter1.className = "filter";
-    filter1.textContent = "Ingrédients";
-    const filter2 = document.createElement("div");
-    filter2.className = "filter";
-    filter2.textContent = "Appareils";
-    const filter3 = document.createElement("div");
-    filter3.className = "filter";
-    filter3.textContent = "Ustensiles";
+// import { toggleFilterModal } from "./toggleFilterModal";
 
-    body?.appendChild(filtersContainer);
-    filtersContainer.appendChild(filter1);
-    filtersContainer.appendChild(filter2);
-    filtersContainer.appendChild(filter3);
+// export function buildFilters(): HTMLElement {
+//     const body = document.querySelector("body");
+//     const filtersContainer = document.createElement("div");
+//     filtersContainer.className = "filters-container";
+//     const filter = document.createElement("div");
+//     filter.className = "filter";
+//     const filterTitle = document.createElement("div");
+//     filterTitle.className = "filter-title";
+//     filterTitle.addEventListener("click", toggleFilterModal);
 
-    return filtersContainer;
-}
+//     filterTitle.textContent = "Ingredients";
+//     const arrowDown = document.createElement("img");
+//     arrowDown.src = "assets/icones/arrowDown.svg";
+//     arrowDown.className = "arrow-down";
+
+//     body?.appendChild(filtersContainer);
+//     filtersContainer.appendChild(filter);
+//     filter.appendChild(filterTitle);
+//     filterTitle.appendChild(arrowDown);
+
+//     return filtersContainer;
+// }
+
+//regroupe l'ensemble des 3 filtres
