@@ -1,8 +1,12 @@
 import { buildFilterModal } from "./buildFilterModal";
 
 export function toggleFilterModal() {
-    //const filterElement = document.querySelector<HTMLElement>(".filter");
     console.log("je suis cliqué");
-    // const filterModal = document.querySelector()
-    buildFilterModal();
+    const filterModal = document.querySelector(".filter-modal");
+
+    if (filterModal) {
+        filterModal.parentNode?.removeChild(filterModal);
+    } else {
+        buildFilterModal();
+    }
 }

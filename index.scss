@@ -207,15 +207,21 @@ body {
 .filter::-webkit-scrollbar {
     display: none;
 }
+
 .filter-title {
     display: flex;
     flex-direction: row;
     margin: 17px;
+    cursor: pointer;
 }
 
 .filter-modal {
     width: 195px;
     height: 300px;
+}
+
+.closed {
+    display: none;
 }
 
 .arrow-down {

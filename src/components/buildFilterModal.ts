@@ -1,9 +1,10 @@
-import { recipes } from "../../assets/data/recipes";
+import { getAllRecipes } from "../utils/recipeRepository.ts";
 
 export function buildFilterModal(): HTMLElement {
     const filterContainer = document.querySelector(".filter");
     const filterModalContainer = document.createElement("div");
-    filterModalContainer.className = "filter-modal";
+    filterModalContainer.classList.add("filter-modal");
+    // filterModalContainer.classList.add("closed");
 
     const filterModalSearchBar = document.createElement("input");
     filterModalSearchBar.setAttribute("type", "text");
@@ -11,7 +12,7 @@ export function buildFilterModal(): HTMLElement {
 
     const filterElementList = document.createElement("ul");
 
-    recipes.forEach(recipe =>
+    getAllRecipes().forEach(recipe =>
         recipe.ingredients.forEach(ingredient => {
             const list = document.createElement("li");
             list.textContent = ingredient.ingredient;
