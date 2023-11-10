@@ -1,4 +1,4 @@
-import { buildFilterModal } from "./buildFilterModal";
+import { buildFilterModal } from "./dropDownSearchComponent";
 
 export function toggleFilterModal() {
     console.log("je suis cliqué");

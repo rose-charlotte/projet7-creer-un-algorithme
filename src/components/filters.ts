@@ -2,8 +2,31 @@
 
 import { DropDownSearchComponent } from "./dropDownSearchComponent";
 import { DropDownFilter } from "./filter";
+import { getAllRecipes } from "../utils/recipeRepository";
 //import { toggleFilterModal } from "./toggleFilterModal";
 
+const ingredients: string[] = getAllRecipes().flatMap(recipe =>
+    recipe.ingredients.map(ingredient => ingredient.ingredient)
+);
+
+function handleDropDownMenu() {
+    const dropDownContainer = document.querySelector("#dropDownContainer");
+    const dropDownFilterContainer = document.querySelector(".dropDown-filter-container");
+    const arrowDown = document.querySelector(".arrow-down") as HTMLImageElement;
+
+    if (dropDownContainer) {
+        dropDownContainer.classList.toggle("closed");
+        dropDownFilterContainer?.classList.toggle("dropDown-filter-container-closed");
+    } else {
+        dropDownContainer!.classList.toggle("dropDownContainer");
+        dropDownFilterContainer?.classList.toggle("dropDown-filter-container");
+    }
+    if (arrowDown?.src.match("assets/icones/arrowDown.svg")) {
+        arrowDown.src = "assets/icones/arrowUp.svg";
+    } else {
+        arrowDown.src = "assets/icones/arrowDown.svg";
+    }
+}
 export function buildFilters(): HTMLElement {
     const body = document.querySelector("body");
     const filtersContainer = document.createElement("div");
@@ -12,15 +35,13 @@ export function buildFilters(): HTMLElement {
     const filterContainer = document.createElement("div");
     filterContainer.className = "filter-container";
 
-    function consoleLog() {
-        console.log("c'est cliqué");
-    }
     const ingredientFilter = DropDownFilter({
         title: "Ingrédient",
-        onClick: consoleLog,
+        onClick: handleDropDownMenu,
     });
 
-    const dropDownSearchComponent = DropDownSearchComponent();
+    const dropDownSearchComponent = DropDownSearchComponent({ ingredients: ingredients });
+
     body?.appendChild(filtersContainer);
     filtersContainer.appendChild(filterContainer);
     filterContainer.appendChild(ingredientFilter);
