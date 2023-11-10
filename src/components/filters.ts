@@ -3,13 +3,13 @@
 import { DropDownSearchComponent } from "./dropDownSearchComponent";
 import { DropDownFilter } from "./filter";
 import { getAllRecipes } from "../utils/recipeRepository";
-//import { toggleFilterModal } from "./toggleFilterModal";
 
 const ingredients: string[] = getAllRecipes().flatMap(recipe =>
     recipe.ingredients.map(ingredient => ingredient.ingredient)
 );
 
-function handleDropDownMenu() {
+// function that handle the dropDown display
+function displayDropDownMenu() {
     const dropDownContainer = document.querySelector("#dropDownContainer");
     const dropDownFilterContainer = document.querySelector(".dropDown-filter-container");
     const arrowDown = document.querySelector(".arrow-down") as HTMLImageElement;
@@ -37,7 +37,7 @@ export function buildFilters(): HTMLElement {
 
     const ingredientFilter = DropDownFilter({
         title: "Ingrédient",
-        onClick: handleDropDownMenu,
+        onClick: displayDropDownMenu,
     });
 
     const dropDownSearchComponent = DropDownSearchComponent({ ingredients: ingredients });
