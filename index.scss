@@ -189,10 +189,21 @@ body {
     flex-direction: row;
     justify-content: flex-start;
     padding-left: 134px;
+    padding-top: 25px;
 }
 
-.filter {
+.filter-container {
+    display: flex;
+    flex-direction: column;
     width: 195px;
+    height: 100px;
+    background-color: #fff;
+    gap: 14px;
+}
+
+.dropDown-filter-container {
+    width: 195px;
+    height: 56px;
     justify-content: center;
     align-items: center;
     background-color: #fff;
@@ -200,11 +211,9 @@ body {
     font-size: 16px;
     font-weight: 500;
     display: flex;
-    flex-direction: column;
-    overflow: auto;
 }
 
-.filter::-webkit-scrollbar {
+.dropDown-filter-container::-webkit-scrollbar {
     display: none;
 }
 

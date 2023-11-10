@@ -1,3 +1,5 @@
+import { searchBarComponent } from "./searchBar";
+
 export function buildHeader(): HTMLElement {
     const body = document.querySelector("body");
     const headerContainer = document.createElement("header");
@@ -26,19 +28,7 @@ export function buildHeader(): HTMLElement {
     descriptiontext.setAttribute("class", "description-text");
     descriptiontext.textContent = "Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses";
 
-    const searchBarContainer = document.createElement("form");
-    searchBarContainer.setAttribute("class", "searchbar-container");
-
-    const searchBarInput = document.createElement("input");
-    searchBarInput.setAttribute("class", "searchbar-input");
-    searchBarInput.setAttribute("placeholder", "Rechercher une recette, un ingrédient...");
-
-    const searchBarIcone = document.createElement("img");
-    searchBarIcone.setAttribute("class", "searchbar-icone");
-    searchBarIcone.setAttribute("src", "assets/icones/Group 4.svg");
-
-    const footerHeader = document.createElement("nav");
-    footerHeader.setAttribute("class", "footer-header");
+    const searchBarContainer = searchBarComponent();
 
     body?.appendChild(headerContainer);
     headerContainer.appendChild(mainHeader);
@@ -48,9 +38,6 @@ export function buildHeader(): HTMLElement {
     mainHeader.appendChild(descriptionTextContainer);
     descriptionTextContainer.appendChild(descriptiontext);
     mainHeader.appendChild(searchBarContainer);
-    searchBarContainer.appendChild(searchBarInput);
-    searchBarContainer.appendChild(searchBarIcone);
-    headerContainer.appendChild(footerHeader);
 
     return headerContainer;
 }
