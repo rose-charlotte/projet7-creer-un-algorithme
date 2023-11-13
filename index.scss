@@ -190,30 +190,46 @@ body {
     justify-content: flex-start;
     padding-left: 134px;
     padding-top: 25px;
+    max-height: 100px;
 }
 
 .filter-container {
     display: flex;
     flex-direction: column;
     width: 195px;
-    height: 100px;
-    background-color: #fff;
-    gap: 14px;
+    height: 315px;
+    border-radius: 11px;
 }
 
-.dropDown-filter-container {
+.open {
     width: 195px;
     height: 56px;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
     font-family: "Manrope";
     font-size: 16px;
     font-weight: 500;
     display: flex;
+    cursor: pointer;
+    background-color: #fff;
+    border-top-right-radius: 11px;
+    border-top-left-radius: 11px;
+}
+.closed {
+    width: 195px;
+    height: 56px;
+    justify-content: center;
+    align-items: center;
+    font-family: "Manrope";
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    cursor: pointer;
+    background-color: #fff;
+    border-radius: 11px;
 }
 
-.dropDown-filter-container::-webkit-scrollbar {
+.dropDownContainer::-webkit-scrollbar {
     display: none;
 }
 
@@ -224,19 +240,57 @@ body {
     cursor: pointer;
 }
 
-.filter-modal {
+.dropDownContainer {
+    width: 195px;
+    height: 56px;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    font-family: "Manrope";
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 26px;
     width: 195px;
     height: 300px;
+    position: relative;
+    z-index: 1;
+    overflow-y: scroll;
+    border-bottom-left-radius: 11px;
+    border-bottom-right-radius: 11px;
 }
 
-.closed {
+.dropDownContainer ul {
+    padding-left: 16px;
+    line-height: 30px;
+}
+
+.dropDownContainer li {
+    font-weight: 400;
+}
+
+.hidden {
     display: none;
 }
 
 .arrow-down {
+    display: flex;
     padding-left: 63px;
+}
+.arrow-down-hidden {
+    display: none;
 }
 
 .searchbar-item-list {
     font-size: 14px;
+}
+
+.filter-modal__searchBar {
+    display: flex;
+    border-radius: 2px;
+    max-width: 163px;
+    border: 1px solid #c6c6c6;
+    padding: 5px;
 }
