@@ -201,7 +201,7 @@ body {
     border-radius: 11px;
 }
 
-.dropDown-filter-container {
+.open {
     width: 195px;
     height: 56px;
     justify-content: center;
@@ -215,7 +215,7 @@ body {
     border-top-right-radius: 11px;
     border-top-left-radius: 11px;
 }
-.dropDown-filter-container-closed {
+.closed {
     width: 195px;
     height: 56px;
     justify-content: center;
@@ -253,7 +253,6 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     gap: 26px;
-    cursor: pointer;
     width: 195px;
     height: 300px;
     position: relative;
@@ -265,9 +264,14 @@ body {
 
 .dropDownContainer ul {
     padding-left: 16px;
+    line-height: 30px;
 }
 
-.closed {
+.dropDownContainer li {
+    font-weight: 400;
+}
+
+.hidden {
     display: none;
 }
 
@@ -281,4 +285,12 @@ body {
 
 .searchbar-item-list {
     font-size: 14px;
+}
+
+.filter-modal__searchBar {
+    display: flex;
+    border-radius: 2px;
+    max-width: 163px;
+    border: 1px solid #c6c6c6;
+    padding: 5px;
 }

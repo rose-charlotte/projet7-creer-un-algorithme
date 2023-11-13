@@ -1,27 +1,10 @@
-export function DropDownSearchComponent(props: dropDownSearchComponentProps): HTMLElement {
-    const dropDownSearchContainer = document.createElement("div");
-    dropDownSearchContainer.id = "dropDownContainer";
-    dropDownSearchContainer.classList.add("dropDownContainer");
-    dropDownSearchContainer.classList.add("closed");
+// export function DropDownSearchComponent(props: DropDownSearchComponentProps): HTMLElement {
 
-    const dropDownSearchBar = document.createElement("input");
-    dropDownSearchBar.setAttribute("type", "text");
-    dropDownSearchBar.className = "filter-modal__searchBar";
+// }
 
-    const filterElementList = document.createElement("ul");
+// export interface DropDownSearchComponentProps {
+//     title: string;
+//     items: string[];
 
-    props.ingredients.forEach(ingredient => {
-        const filterElement = document.createElement("li");
-        filterElement.textContent = ingredient;
-        filterElementList.appendChild(filterElement);
-    });
-
-    dropDownSearchContainer.appendChild(dropDownSearchBar);
-    dropDownSearchContainer.appendChild(filterElementList);
-
-    return dropDownSearchContainer;
-}
-
-export interface dropDownSearchComponentProps {
-    ingredients: string[];
-}
+//     onItemSelected: (item: string) => void;
+// }
