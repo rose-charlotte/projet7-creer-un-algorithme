@@ -3,10 +3,15 @@
 import { getAllRecipes } from "../utils/recipeRepository";
 import { DropDownSearch } from "./dropDownSearch/DropDownSearch.ts";
 
-const ingredients: string[] = getAllRecipes().flatMap(recipe =>
+const AllRecipesIngredients: string[] = getAllRecipes().flatMap(recipe =>
     recipe.ingredients.map(ingredient => ingredient.ingredient)
 );
+const toLowercaseIngredients = AllRecipesIngredients.map(ingredient => ingredient.toLowerCase());
 
+const setIngredients = new Set(toLowercaseIngredients);
+const ingredients = Array.from(setIngredients);
+console.log(ingredients);
+console.log(setIngredients);
 // function that handle the dropDown display
 
 export function buildFilters(): HTMLElement {
@@ -19,14 +24,12 @@ export function buildFilters(): HTMLElement {
 
     const dropDownIngredientFilter = DropDownSearch({
         title: "Ingredient",
-        onClick: displayDropDownMenu,
         items: ingredients,
         onItemSelected: consoleLog,
     });
 
     const dropDownApplianceFilter = DropDownSearch({
         title: "Appareils",
-        onClick: displayDropDownMenu,
         items: ["saladier", "robot", "four"],
         onItemSelected: consoleLog,
     });
@@ -42,25 +45,6 @@ export function buildFilters(): HTMLElement {
     return filtersContainer;
 }
 
-function displayDropDownMenu() {
-    const alldropDownContainer = document.querySelector(".dropDownContainer");
-    // console.log(dropDownContainer);
-    const dropDownFilterContainer = document.querySelector(".dropDown-filter-container");
-    const ouvert = document.querySelector(".open");
-    const arrowDown = document.querySelector(".arrow-down") as HTMLImageElement;
-
-    if (alldropDownContainer) {
-        alldropDownContainer?.classList.toggle("hidden");
-        dropDownFilterContainer?.classList.toggle("dropDown-filter-container-closed");
-        ouvert?.classList.toggle("closed");
-    }
-
-    if (arrowDown?.src.match("assets/icones/arrowDown.svg")) {
-        arrowDown.src = "assets/icones/arrowUp.svg";
-    } else {
-        arrowDown.src = "assets/icones/arrowDown.svg";
-    }
-}
 function consoleLog() {
     console.log("ok");
 }
