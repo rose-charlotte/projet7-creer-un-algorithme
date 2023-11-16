@@ -10,8 +10,7 @@ const toLowercaseIngredients = AllRecipesIngredients.map(ingredient => ingredien
 
 const setIngredients = new Set(toLowercaseIngredients);
 const ingredients = Array.from(setIngredients);
-console.log(ingredients);
-console.log(setIngredients);
+
 // function that handle the dropDown display
 
 export function buildFilters(): HTMLElement {
@@ -25,26 +24,27 @@ export function buildFilters(): HTMLElement {
     const dropDownIngredientFilter = DropDownSearch({
         title: "Ingredient",
         items: ingredients,
-        onItemSelected: consoleLog,
+        onItemSelected,
     });
 
     const dropDownApplianceFilter = DropDownSearch({
         title: "Appareils",
         items: ["saladier", "robot", "four"],
-        onItemSelected: consoleLog,
+        onItemSelected,
     });
-
-    //const dropDownSearchComponent = DropDownSearchComponent({ items: ingredients });
 
     body?.appendChild(filtersContainer);
 
     filtersContainer.appendChild(dropDownIngredientFilter);
     filtersContainer.appendChild(dropDownApplianceFilter);
-    //filterContainer.appendChild(dropDownSearchComponent);
 
     return filtersContainer;
-}
 
-function consoleLog() {
-    console.log("ok");
+    function onItemSelected(item: string) {
+        console.log(item);
+        const selectedItemContainer = document.createElement("div");
+        selectedItemContainer.className = "selectedItem-container";
+        selectedItemContainer.textContent = item;
+        filtersContainer.appendChild(selectedItemContainer);
+    }
 }
