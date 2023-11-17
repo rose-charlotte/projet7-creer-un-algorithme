@@ -1,8 +1,9 @@
 //Element which build the dropDownSearchComponent
 
+import { ComponentRender } from "../../ComponentRender";
 import { DropDownSearchBar } from "./DropDownSearchBar";
 import { DropDownSearchHeader } from "./DropDownSearchHeader";
-import { DropDownSearchList } from "./DropDownSearchList";
+import { DropDownSearchList, DropDownSearchListProps } from "./DropDownSearchList";
 
 // 1. Va devoir filtrer les items en fonction de ce que contient la search bar
 //     ** Attention au filtre vide
@@ -33,7 +34,7 @@ export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
         const ouvert = document.querySelector(".open");
 
         if (open === false) {
-            dropDownSearchContainer?.classList.toggle("hidden");
+            dropDownSearchContainer.classList.toggle("hidden");
             dropDownFilterContainer?.classList.toggle("dropDown-filter-container-closed");
             ouvert?.classList.toggle("closed");
         }
@@ -46,8 +47,14 @@ export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
     }
 
     function onItemSelected(item: string) {
-        props.onItemSelected(item);
         console.log(item);
+        const selectedItemContainer = document.createElement("div");
+        selectedItemContainer.className = "selectedItem-container";
+        selectedItemContainer.textContent = item;
+
+        const filtersContainer = document.querySelector(".filters-container");
+        filtersContainer?.appendChild(selectedItemContainer);
+        props.onItemSelected(item);
     }
 
     dropDownSearchHeaderContainer.appendChild(header);
@@ -56,6 +63,54 @@ export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
     dropDownSearchContainer.appendChild(dropDownSearchList);
 
     return dropDownSearchHeaderContainer;
+
+    // class InitialState {
+    //     private _items: string[];
+
+    //     constructor() {
+    //         this._items = props.items;
+    //     }
+    //     public get items(): string[] {
+    //         return this._items;
+    //     }
+    //     public set items(value: string[]) {
+    //         this._items = value;
+
+    //         renderDropDownSearchList();
+    //     }
+    // }
+
+    // const state: InitialState = new InitialState();
+
+    // const uiState: UIState = {
+    //     container: document.createElement("div"),
+    // };
+    // return initialRender();
+
+    // function renderDropDownSearchList() {
+    //     if (uiState.dropDownSearchList) {
+    //         uiState.dropDownSearchList.updateProps({ items: state.items });
+    //     } else {
+    //         uiState.dropDownSearchList = DropDownSearchList({
+    //             items: state.items,
+    //             onItemSelected,
+    //         });
+    //         uiState.container.appendChild(uiState.dropDownSearchList.element);
+    //     }
+    // }
+
+    // function initialRender(): HTMLElement {
+    //     uiState.container.classList.add("dropDownContainer");
+    //     // uiState.container.classList.add("hidden");
+
+    //     uiState.container.appendChild(header);
+    //     renderDropDownSearchList();
+    //     return uiState.container;
+    // }
+    // interface UIState {
+    //     container: HTMLDivElement;
+    //     dropDownSearchList?: ComponentRender<DropDownSearchListProps>;
+    // }
 }
 
 export interface DropDownSearchProps {

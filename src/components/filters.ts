@@ -35,8 +35,9 @@ export function buildFilters(): HTMLElement {
 
     body?.appendChild(filtersContainer);
 
-    filtersContainer.appendChild(dropDownIngredientFilter);
-    filtersContainer.appendChild(dropDownApplianceFilter);
+    filtersContainer.appendChild(filterContainer);
+    filterContainer.appendChild(dropDownIngredientFilter);
+    filterContainer.appendChild(dropDownApplianceFilter);
 
     return filtersContainer;
 
