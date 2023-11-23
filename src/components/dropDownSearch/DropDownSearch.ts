@@ -10,40 +10,97 @@ import { DropDownSearchList, DropDownSearchListProps } from "./DropDownSearchLis
 // 2. Va devoir renvoyer au parent l'élément selectionné
 
 export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
-    const dropDownSearchHeaderContainer = document.createElement("div");
-    dropDownSearchHeaderContainer.className = "dropDown-filter-container";
+    class InitialState {
+        private _items: string[];
 
-    const header = DropDownSearchHeader({
-        onToggleOpenClose,
-        title: props.title,
-    });
+        constructor() {
+            this._items = props.items;
+        }
+        public get items(): string[] {
+            return this._items;
+        }
+        public set items(value: string[]) {
+            this._items = value;
 
-    const dropDownSearchContainer = document.createElement("div");
+            renderDropDownSearchBar();
+            renderDropDownSearchList();
+        }
+    }
 
-    dropDownSearchContainer.classList.add("dropDownContainer");
-    dropDownSearchContainer.classList.add("hidden");
+    const state: InitialState = new InitialState();
 
-    const dropDownSearchbar = DropDownSearchBar({ onChange });
-    const dropDownSearchList = DropDownSearchList({
-        items: props.items,
-        onItemSelected,
-    });
+    const uiState: UIState = {
+        container: document.createElement("div"),
+        dropDownContainer: document.createElement("div"),
+    };
+
+    return initialRender();
+
+    // const dropDownSearchHeaderContainer = document.createElement("div");
+    // dropDownSearchHeaderContainer.className = "dropDown-filter-container";
+
+    function renderHeader(): void {
+        uiState.header = DropDownSearchHeader({
+            onToggleOpenClose,
+            title: props.title,
+        });
+
+        uiState.container.appendChild(uiState.header);
+    }
+
+    // const dropDownSearchContainer = document.createElement("div");
+
+    // dropDownSearchContainer.classList.add("dropDownContainer");
+    // dropDownSearchContainer.classList.add("hidden");
+
+    //Appel aux composants DropsDOwnSearchBar et DropsDOwnSearchList
+
+    //const dropDownSearchbar = DropDownSearchBar({ onChange });
+    function renderDropDownSearchBar(): void {
+        if (!uiState.dropDownSearchBar) {
+            uiState.dropDownSearchBar = DropDownSearchBar({ onChange });
+            uiState.dropDownContainer.appendChild(uiState.dropDownSearchBar);
+        }
+    }
+
+    // const dropDownSearchList = DropDownSearchList({
+    //     items: props.items,
+    //     onItemSelected,
+    // });
+    function renderDropDownSearchList(): void {
+        if (uiState.dropDownSearchList) {
+            uiState.dropDownSearchList.updateProps({
+                items: state.items,
+                onItemSelected,
+            });
+            console.log("les items trié", state.items);
+        } else {
+            uiState.dropDownSearchList = DropDownSearchList({
+                items: state.items,
+                onItemSelected,
+            });
+            uiState.dropDownContainer.appendChild(uiState.dropDownSearchList.element);
+        }
+    }
 
     function onToggleOpenClose(open: boolean) {
-        const dropDownFilterContainer = document.querySelector(".dropDown-filter-container");
-        const ouvert = document.querySelector(".open");
-
-        if (open === false) {
-            dropDownSearchContainer.classList.toggle("hidden");
-            dropDownFilterContainer?.classList.toggle("dropDown-filter-container-closed");
-            ouvert?.classList.toggle("closed");
+        if (!open) {
+            uiState.dropDownContainer.classList.toggle("hidden");
         }
     }
 
     function onChange(value: string) {
-        const foundIngredients = props.items.filter(item => item.includes(value));
+        if (uiState.debounceTimer) {
+            clearTimeout(uiState.debounceTimer);
+            uiState.debounceTimer = undefined;
+        }
 
-        console.log(foundIngredients);
+        uiState.debounceTimer = setTimeout(() => {
+            const foundIngredients = props.items.filter(item => item.includes(value));
+            state.items = foundIngredients;
+            uiState.debounceTimer = undefined;
+            console.log(foundIngredients);
+        }, 500);
     }
 
     function onItemSelected(item: string) {
@@ -57,64 +114,36 @@ export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
         props.onItemSelected(item);
     }
 
-    dropDownSearchHeaderContainer.appendChild(header);
-    dropDownSearchHeaderContainer.appendChild(dropDownSearchContainer);
-    dropDownSearchContainer.appendChild(dropDownSearchbar);
-    dropDownSearchContainer.appendChild(dropDownSearchList);
+    // dropDownSearchHeaderContainer.appendChild(dropDownSearchContainer);
+    // dropDownSearchContainer.appendChild(dropDownSearchbar);
+    // dropDownSearchContainer.appendChild(dropDownSearchList);
 
-    return dropDownSearchHeaderContainer;
+    function initialRender(): HTMLElement {
+        uiState.container.className = "dropDown-filter-container";
 
-    // class InitialState {
-    //     private _items: string[];
+        uiState.dropDownContainer.classList.add("dropDownContainer");
+        uiState.dropDownContainer.classList.add("hidden");
 
-    //     constructor() {
-    //         this._items = props.items;
-    //     }
-    //     public get items(): string[] {
-    //         return this._items;
-    //     }
-    //     public set items(value: string[]) {
-    //         this._items = value;
+        renderHeader();
 
-    //         renderDropDownSearchList();
-    //     }
-    // }
-
-    // const state: InitialState = new InitialState();
-
-    // const uiState: UIState = {
-    //     container: document.createElement("div"),
-    // };
-    // return initialRender();
-
-    // function renderDropDownSearchList() {
-    //     if (uiState.dropDownSearchList) {
-    //         uiState.dropDownSearchList.updateProps({ items: state.items });
-    //     } else {
-    //         uiState.dropDownSearchList = DropDownSearchList({
-    //             items: state.items,
-    //             onItemSelected,
-    //         });
-    //         uiState.container.appendChild(uiState.dropDownSearchList.element);
-    //     }
-    // }
-
-    // function initialRender(): HTMLElement {
-    //     uiState.container.classList.add("dropDownContainer");
-    //     // uiState.container.classList.add("hidden");
-
-    //     uiState.container.appendChild(header);
-    //     renderDropDownSearchList();
-    //     return uiState.container;
-    // }
-    // interface UIState {
-    //     container: HTMLDivElement;
-    //     dropDownSearchList?: ComponentRender<DropDownSearchListProps>;
-    // }
+        renderDropDownSearchBar();
+        renderDropDownSearchList();
+        uiState.container.appendChild(uiState.dropDownContainer);
+        return uiState.container;
+    }
 }
 
 export interface DropDownSearchProps {
     title: string;
     items: string[];
     onItemSelected: (item: string) => void;
+}
+
+interface UIState {
+    container: HTMLDivElement;
+    dropDownContainer: HTMLDivElement;
+    header?: HTMLElement;
+    dropDownSearchBar?: HTMLElement;
+    dropDownSearchList?: ComponentRender<DropDownSearchListProps>;
+    debounceTimer?: number;
 }

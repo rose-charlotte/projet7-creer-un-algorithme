@@ -204,7 +204,7 @@ body {
     border-radius: 11px;
 }
 
-.open {
+.dropdown-search-header.open {
     width: 195px;
     height: 56px;
     justify-content: center;
@@ -217,8 +217,11 @@ body {
     background-color: #fff;
     border-top-right-radius: 11px;
     border-top-left-radius: 11px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
-.closed {
+
+.dropdown-search-header {
     width: 195px;
     height: 56px;
     justify-content: center;
@@ -234,6 +237,10 @@ body {
 
 .dropDownContainer::-webkit-scrollbar {
     display: none;
+}
+
+.dropdown-search-list-container {
+    width: 100%;
 }
 
 .filter-title {

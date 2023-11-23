@@ -2,8 +2,7 @@
 
 export function DropDownSearchHeader(props: DropDownSearchHeaderProps): HTMLElement {
     const dropDownFilterContainer = document.createElement("div");
-    dropDownFilterContainer.classList.add("open");
-    dropDownFilterContainer.classList.add("closed");
+    dropDownFilterContainer.classList.add("dropdown-search-header");
     dropDownFilterContainer.textContent = props.title;
     dropDownFilterContainer.addEventListener("click", toggleOpenClose);
 
@@ -16,11 +15,14 @@ export function DropDownSearchHeader(props: DropDownSearchHeaderProps): HTMLElem
     return dropDownFilterContainer;
 
     function toggleOpenClose() {
-        if (arrowDown?.src.match("assets/icones/arrowDown.svg")) {
+        const isOpened = dropDownFilterContainer.classList.toggle("open");
+
+        if (isOpened) {
             arrowDown.src = "assets/icones/arrowUp.svg";
         } else {
             arrowDown.src = "assets/icones/arrowDown.svg";
         }
+
         props.onToggleOpenClose(false);
     }
 }

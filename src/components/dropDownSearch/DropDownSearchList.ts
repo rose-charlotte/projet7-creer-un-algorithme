@@ -1,53 +1,44 @@
-//import { ComponentRender } from "../../ComponentRender";
+import { ComponentRender } from "../../ComponentRender";
 
-export function DropDownSearchList(props: DropDownSearchListProps): HTMLElement {
+export function DropDownSearchList(props: DropDownSearchListProps): ComponentRender<DropDownSearchListProps> {
     const dropDownSearchListContainer = document.createElement("div");
+    dropDownSearchListContainer.className = "dropdown-search-list-container";
 
-    const filterElementList = document.createElement("ul");
+    renderItems(props.items);
 
-    props.items.forEach(ingredient => {
-        const filterElement = document.createElement("li");
-        filterElement.className = "filter-element";
-        filterElement.textContent = ingredient;
-        filterElement.addEventListener("click", selectedElement);
-        function selectedElement() {
-            props.onItemSelected(ingredient);
-        }
-        filterElementList.appendChild(filterElement);
-    });
-    dropDownSearchListContainer.appendChild(filterElementList);
+    return {
+        element: dropDownSearchListContainer,
+        updateProps: update,
+    };
 
-    return dropDownSearchListContainer;
+    function renderItems(items: string[]): void {
+        const filterElementListSelectedItems = document.createElement("ul");
+        filterElementListSelectedItems.className = "dropdown-search-list-selected-items";
+
+        const filterElementListUnselectedItems = document.createElement("ul");
+        filterElementListUnselectedItems.className = "dropdown-search-list-unselected-items";
+
+        items.forEach(ingredient => {
+            const filterElement = document.createElement("li");
+            filterElement.className = "filter-element";
+            filterElement.textContent = ingredient;
+            filterElement.dataset.item = ingredient;
+            filterElement.addEventListener("click", selectedElement);
+            function selectedElement() {
+                props.onItemSelected(ingredient);
+            }
+            filterElementListUnselectedItems.appendChild(filterElement);
+        });
+
+        dropDownSearchListContainer.replaceChildren(filterElementListSelectedItems, filterElementListUnselectedItems);
+    }
+
+    function update(updatedProps: Partial<DropDownSearchListProps>): void {
+        renderItems(updatedProps.items ?? props.items);
+    }
 }
 
 export interface DropDownSearchListProps {
     items: string[];
     onItemSelected: (item: string) => void;
 }
-
-// export function DropDownSearchList(props: DropDownSearchListProps): ComponentRender<DropDownSearchListProps> {
-//     const dropDownSearchListContainer = document.createElement("div");
-
-//     const filterElementList = document.createElement("ul");
-
-//     props.items.forEach(ingredient => {
-//         const filterElement = document.createElement("li");
-//         filterElement.className = "filter-element";
-//         filterElement.textContent = ingredient;
-//         filterElement.addEventListener("click", selectedElement);
-//         function selectedElement() {
-//             props.onItemSelected(ingredient);
-//         }
-//         filterElementList.appendChild(filterElement);
-//     });
-//     dropDownSearchListContainer.appendChild(filterElementList);
-
-//     return {
-//         element: dropDownSearchListContainer,
-//         updateProps: update,
-//     };
-
-//     function update(updateProps: Partial<DropDownSearchListProps>) {
-//         console.log(updateProps);
-//     }
-// }

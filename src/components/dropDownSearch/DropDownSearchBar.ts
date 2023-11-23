@@ -16,11 +16,11 @@ export function DropDownSearchBar(props: DropDownSearchBarProps): HTMLElement {
     dropDownSearchBar.appendChild(dropDownInput);
     dropDownSearchBar.appendChild(searchIcon);
 
-    return dropDownSearchBar;
-
     function onChange() {
         props.onChange(dropDownInput.value);
     }
+
+    return dropDownSearchBar;
 }
 
 export interface DropDownSearchBarProps {
