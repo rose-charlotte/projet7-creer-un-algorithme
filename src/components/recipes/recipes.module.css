@@ -1,0 +1,87 @@
+.recipeContainer {
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+    height: 731px;
+    border-radius: 21px;
+    background-color: #fff;
+}
+
+.imgContainer {
+    width: 380px;
+    height: 253px;
+}
+
+.recipeImg {
+    width: 380px;
+    height: 253px;
+    border-top-right-radius: 21px;
+    border-top-left-radius: 21px;
+    object-fit: cover;
+}
+
+.recipeTitle {
+    color: black;
+    font-family: "Anton";
+    font-size: 18px;
+    font-weight: 400;
+    padding-top: 32px;
+    padding-left: 25px;
+}
+
+.secondTitle {
+    font-family: "Manrope";
+    font-size: 12px;
+    font-weight: 700;
+    color: #7a7a7a;
+    text-transform: uppercase;
+    padding-top: 29px;
+    padding-left: 25px;
+}
+
+.recipeInstructions {
+    color: black;
+    font-family: "Manrope";
+    font-size: 14px;
+    font-weight: 400;
+    overflow: hidden;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    padding-top: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.ingredientList {
+    font-family: "Manrope";
+    font-size: 14px;
+    font-weight: 500;
+    list-style-type: none;
+}
+
+.ingredientComplement {
+    font-family: "Manrope";
+    font-size: 14px;
+    font-weight: 400;
+    color: #7a7a7a;
+    padding-top: 5px;
+}
+
+.recipeListContainer {
+    background-color: #ededed;
+    display: flex;
+    flex-direction: row;
+    gap: 102px;
+    flex-wrap: wrap;
+    padding: 109px;
+    justify-content: center;
+}
+
+.ingredientListContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+    gap: 20px;
+}
+

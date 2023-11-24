@@ -1,0 +1,26 @@
+.filtersContainer {
+    background-color: #ededed;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-left: 134px;
+    padding-top: 25px;
+    max-height: 100px;
+}
+
+.filterContainer {
+    background-color: #ededed;
+    display: flex;
+    gap: 66px;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding-left: 134px;
+    padding-top: 25px;
+    max-height: 100px;
+    border-radius: 11px;
+}
+
+.selectedItemContainer {
+    width: 50px;
+    background-color: yellow;
+}

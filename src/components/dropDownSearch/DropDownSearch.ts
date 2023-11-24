@@ -5,9 +5,7 @@ import { DropDownSearchBar } from "./DropDownSearchBar";
 import { DropDownSearchHeader } from "./DropDownSearchHeader";
 import { DropDownSearchList, DropDownSearchListProps } from "./DropDownSearchList";
 
-// 1. Va devoir filtrer les items en fonction de ce que contient la search bar
-//     ** Attention au filtre vide
-// 2. Va devoir renvoyer au parent l'élément selectionné
+import styles from "./DropDownSearch.module.css";
 
 export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
     class InitialState {
@@ -36,9 +34,6 @@ export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
 
     return initialRender();
 
-    // const dropDownSearchHeaderContainer = document.createElement("div");
-    // dropDownSearchHeaderContainer.className = "dropDown-filter-container";
-
     function renderHeader(): void {
         uiState.header = DropDownSearchHeader({
             onToggleOpenClose,
@@ -48,14 +43,6 @@ export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
         uiState.container.appendChild(uiState.header);
     }
 
-    // const dropDownSearchContainer = document.createElement("div");
-
-    // dropDownSearchContainer.classList.add("dropDownContainer");
-    // dropDownSearchContainer.classList.add("hidden");
-
-    //Appel aux composants DropsDOwnSearchBar et DropsDOwnSearchList
-
-    //const dropDownSearchbar = DropDownSearchBar({ onChange });
     function renderDropDownSearchBar(): void {
         if (!uiState.dropDownSearchBar) {
             uiState.dropDownSearchBar = DropDownSearchBar({ onChange });
@@ -63,10 +50,6 @@ export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
         }
     }
 
-    // const dropDownSearchList = DropDownSearchList({
-    //     items: props.items,
-    //     onItemSelected,
-    // });
     function renderDropDownSearchList(): void {
         if (uiState.dropDownSearchList) {
             uiState.dropDownSearchList.updateProps({
@@ -85,7 +68,8 @@ export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
 
     function onToggleOpenClose(open: boolean) {
         if (!open) {
-            uiState.dropDownContainer.classList.toggle("hidden");
+            console.log(open);
+            uiState.dropDownContainer.classList.toggle(styles.hidden);
         }
     }
 
@@ -106,7 +90,8 @@ export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
     function onItemSelected(item: string) {
         console.log(item);
         const selectedItemContainer = document.createElement("div");
-        selectedItemContainer.className = "selectedItem-container";
+
+        selectedItemContainer.className = "selectedItemContainer";
         selectedItemContainer.textContent = item;
 
         const filtersContainer = document.querySelector(".filters-container");
@@ -114,15 +99,11 @@ export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
         props.onItemSelected(item);
     }
 
-    // dropDownSearchHeaderContainer.appendChild(dropDownSearchContainer);
-    // dropDownSearchContainer.appendChild(dropDownSearchbar);
-    // dropDownSearchContainer.appendChild(dropDownSearchList);
-
     function initialRender(): HTMLElement {
-        uiState.container.className = "dropDown-filter-container";
+        uiState.container.className = styles.dropDownFilterContainer;
 
-        uiState.dropDownContainer.classList.add("dropDownContainer");
-        uiState.dropDownContainer.classList.add("hidden");
+        uiState.dropDownContainer.className = styles.dropDownContainer;
+        uiState.dropDownContainer.classList.add(styles.hidden);
 
         renderHeader();
 

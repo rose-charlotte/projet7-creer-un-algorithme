@@ -1,7 +1,9 @@
 //regroupe l'ensemble des 3 filtres
 
-import { getAllRecipes } from "../utils/recipeRepository";
-import { DropDownSearch } from "./dropDownSearch/DropDownSearch.ts";
+import { getAllRecipes } from "../../utils/recipeRepository.ts";
+import { DropDownSearch } from "../dropDownSearch/DropDownSearch.ts";
+
+import styles from "./filters.module.css";
 
 const AllRecipesIngredients: string[] = getAllRecipes().flatMap(recipe =>
     recipe.ingredients.map(ingredient => ingredient.ingredient)
@@ -16,10 +18,10 @@ const ingredients = Array.from(setIngredients);
 export function buildFilters(): HTMLElement {
     const body = document.querySelector("body");
     const filtersContainer = document.createElement("div");
-    filtersContainer.className = "filters-container";
+    filtersContainer.className = styles.filtersContainer;
 
     const filterContainer = document.createElement("div");
-    filterContainer.className = "filter-container";
+    filterContainer.className = styles.filterContainer;
 
     const dropDownIngredientFilter = DropDownSearch({
         title: "Ingredient",
@@ -44,7 +46,7 @@ export function buildFilters(): HTMLElement {
     function onItemSelected(item: string) {
         console.log(item);
         const selectedItemContainer = document.createElement("div");
-        selectedItemContainer.className = "selectedItem-container";
+        selectedItemContainer.className = styles.selectedItemContainer;
         selectedItemContainer.textContent = item;
         filtersContainer.appendChild(selectedItemContainer);
     }

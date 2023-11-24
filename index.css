@@ -1,0 +1,7 @@
+
+
+body {
+    margin: unset;
+    display: flex;
+    flex-direction: column;
+}

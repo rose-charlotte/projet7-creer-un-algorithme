@@ -1,37 +1,38 @@
-import { Ingredient } from "../types/Ingredient";
-import { Recipe } from "../types/Recipe";
+import { Ingredient } from "../../types/Ingredient";
+import { Recipe } from "../../types/Recipe";
+import styles from "./recipes.module.css";
 
 export function buildRecipes(recipe: Recipe): HTMLElement {
     const recipeListContainer = document.querySelector("recipeList-container");
 
     const recipeContainer = document.createElement("article");
-    recipeContainer.setAttribute("class", "recipe-container");
+    recipeContainer.className = styles.recipeContainer;
 
     const imgContainer = document.createElement("div");
-    imgContainer.className = "img-container";
+    imgContainer.className = styles.imgContainer;
     const img = document.createElement("img");
-    img.setAttribute("class", "recipe-img");
+    img.className = styles.recipeImg;
     img.src = `assets/images/photo/${recipe.image}`;
 
     const recipeTitle = document.createElement("h1");
-    recipeTitle.setAttribute("class", "recipe-title");
+    recipeTitle.className = styles.recipeTitle;
     recipeTitle.textContent = recipe.name;
 
     const recetteTitle = document.createElement("h2");
-    recetteTitle.setAttribute("class", "second-title");
+    recetteTitle.className = styles.secondTitle;
     recetteTitle.textContent = "recette";
 
     const recipeInstructions = document.createElement("p");
-    recipeInstructions.setAttribute("class", "recipe-instructions");
+    recipeInstructions.className = styles.recipeInstructions;
     recipeInstructions.textContent = recipe.description;
 
     const ingredientsTitle = document.createElement("h2");
-    ingredientsTitle.setAttribute("class", "second-title");
+    ingredientsTitle.className = styles.secondTitle;
     ingredientsTitle.textContent = "ingrédient";
 
     const ingredientsList = recipe.ingredients;
     const ingredientListContainer = document.createElement("div");
-    ingredientListContainer.className = "ingredientList-container";
+    ingredientListContainer.className = styles.ingredientListContainer;
     ingredientsList.forEach(ingredient => {
         const ingredientList = buildIngredientsList(ingredient);
         ingredientListContainer.appendChild(ingredientList);
@@ -52,11 +53,11 @@ export function buildRecipes(recipe: Recipe): HTMLElement {
 function buildIngredientsList(ingredient: Ingredient): HTMLElement {
     const container = document.createElement("div");
     const li = document.createElement("li");
-    li.className = "ingredient-list";
+    li.className = styles.ingredientList;
     li.textContent = ingredient.ingredient;
 
     const ingredientsComplement = document.createElement("p");
-    ingredientsComplement.className = "ingredient-complement";
+    ingredientsComplement.className = styles.ingredientComplement;
 
     const complements: string[] = [];
 

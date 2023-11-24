@@ -1,8 +1,10 @@
 import { ComponentRender } from "../../ComponentRender";
 
+import styles from "./DropDownSearch.module.css";
+
 export function DropDownSearchList(props: DropDownSearchListProps): ComponentRender<DropDownSearchListProps> {
     const dropDownSearchListContainer = document.createElement("div");
-    dropDownSearchListContainer.className = "dropdown-search-list-container";
+    dropDownSearchListContainer.className = styles.dropdownSearchListContainer;
 
     renderItems(props.items);
 
@@ -13,14 +15,15 @@ export function DropDownSearchList(props: DropDownSearchListProps): ComponentRen
 
     function renderItems(items: string[]): void {
         const filterElementListSelectedItems = document.createElement("ul");
-        filterElementListSelectedItems.className = "dropdown-search-list-selected-items";
+        filterElementListSelectedItems.className = styles.dropdownSearchListSelectedItems;
 
         const filterElementListUnselectedItems = document.createElement("ul");
-        filterElementListUnselectedItems.className = "dropdown-search-list-unselected-items";
+        filterElementListUnselectedItems.className = styles.dropdownSearchListUnselectedItems;
 
         items.forEach(ingredient => {
             const filterElement = document.createElement("li");
-            filterElement.className = "filter-element";
+            filterElement.className = styles.filterElement;
+
             filterElement.textContent = ingredient;
             filterElement.dataset.item = ingredient;
             filterElement.addEventListener("click", selectedElement);
