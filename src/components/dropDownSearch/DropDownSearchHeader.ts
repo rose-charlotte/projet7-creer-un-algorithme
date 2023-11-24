@@ -1,13 +1,17 @@
+import styles from "./DropDownSearch.module.css";
+
 //Build the header element of the dropDown
 
 export function DropDownSearchHeader(props: DropDownSearchHeaderProps): HTMLElement {
     const dropDownFilterContainer = document.createElement("div");
-    dropDownFilterContainer.classList.add("dropdown-search-header");
+    dropDownFilterContainer.classList.add(styles.dropdownSearchHeader);
+
     dropDownFilterContainer.textContent = props.title;
     dropDownFilterContainer.addEventListener("click", toggleOpenClose);
 
     const arrowDown = document.createElement("img");
-    arrowDown.classList.add("arrow-down");
+    arrowDown.classList.add(styles.arrowDown);
+
     arrowDown.src = "assets/icones/arrowDown.svg";
 
     dropDownFilterContainer.appendChild(arrowDown);
@@ -15,7 +19,7 @@ export function DropDownSearchHeader(props: DropDownSearchHeaderProps): HTMLElem
     return dropDownFilterContainer;
 
     function toggleOpenClose() {
-        const isOpened = dropDownFilterContainer.classList.toggle("open");
+        const isOpened = dropDownFilterContainer.classList.toggle(styles.open);
 
         if (isOpened) {
             arrowDown.src = "assets/icones/arrowUp.svg";

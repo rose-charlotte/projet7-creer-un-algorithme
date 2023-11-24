@@ -1,16 +1,20 @@
+import styles from "./DropDownSearch.module.css";
+
 export function DropDownSearchBar(props: DropDownSearchBarProps): HTMLElement {
     const dropDownSearchBar = document.createElement("div");
-    // dropDownSearchBar.setAttribute("type", "text");
-    dropDownSearchBar.className = "filter-modal__searchBar";
+
+    dropDownSearchBar.className = styles.filterModalSearchBar;
 
     const dropDownInput = document.createElement("input");
+    dropDownInput.className = styles.searchbarInput;
+
     dropDownInput.setAttribute("type", "text");
-    dropDownInput.className = "searchbar-input";
     dropDownInput.addEventListener("input", onChange);
 
     const searchIcon = document.createElement("img");
     searchIcon.setAttribute("aria-hidden", "true");
-    searchIcon.className = "searchIcon";
+    searchIcon.className = styles.searchIcon;
+
     searchIcon.src = "assets/icones/loupe.svg";
 
     dropDownSearchBar.appendChild(dropDownInput);

@@ -1,0 +1,139 @@
+.dropDownContainer.hidden{
+    display: none;
+}
+
+.selectedItemContainer {
+    width: 50px;
+    background-color: yellow;
+}
+
+.dropDownContainer {
+    width: 195px;
+    height: 56px;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    font-family: "Manrope";
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 26px;
+    width: 195px;
+    height: 300px;
+    position: relative;
+    z-index: 1;
+    overflow-y: scroll;
+    border-bottom-left-radius: 11px;
+    border-bottom-right-radius: 11px;
+}
+.arrowDown {
+    display: flex;
+    padding-left: 63px;
+}
+
+.dropdownSearchHeader.open {
+    width: 195px;
+    height: 56px;
+    justify-content: center;
+    align-items: center;
+    font-family: "Manrope";
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    cursor: pointer;
+    background-color: #fff;
+    border-top-right-radius: 11px;
+    border-top-left-radius: 11px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.filterModalSearchBar {
+    display: flex;
+    border-radius: 2px;
+    max-width: 163px;
+    border: 1px solid #c6c6c6;
+    padding: 5px;
+}
+.dropdownSearchHeader {
+    width: 195px;
+    height: 56px;
+    justify-content: center;
+    align-items: center;
+    font-family: "Manrope";
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    cursor: pointer;
+    background-color: #fff;
+    border-radius: 11px;
+}
+
+.dropDownContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.dropdownSearchListContainer {
+    width: 100%;
+}
+
+.filterTitle {
+    display: flex;
+    flex-direction: row;
+    margin: 17px;
+    cursor: pointer;
+}
+
+.dropDownContainer ul {
+    padding-left: 16px;
+    line-height: 30px;
+}
+
+.dropDownContainer li {
+    font-weight: 400;
+}
+
+.arrow-down-hidden {
+    display: none;
+}
+
+.searchbar-item-list {
+    font-size: 14px;
+}
+
+.filterElement {
+    cursor: pointer;
+}
+.searchbarInput {
+    width: 93%;
+    padding: 1%;
+    border: none;
+}
+
+.searchbarInput:focus {
+    outline: none;
+}
+.filters-container {
+    background-color: #ededed;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-left: 134px;
+    padding-top: 25px;
+    max-height: 100px;
+}
+
+.filter-container {
+    background-color: #ededed;
+    display: flex;
+    gap: 66px;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding-left: 134px;
+    padding-top: 25px;
+    max-height: 100px;
+    border-radius: 11px;
+}
+.dropDownFilterContainer{}

@@ -1,13 +1,15 @@
+import styles from "./searchBar.module.css";
+
 export function searchBarComponent(): HTMLElement {
     const searchBarContainer = document.createElement("form");
-    searchBarContainer.setAttribute("class", "searchbar-container");
+    searchBarContainer.className = styles.searchbarContainer;
 
     const searchBarInput = document.createElement("input");
-    searchBarInput.setAttribute("class", "searchbar-input");
+    searchBarInput.className = styles.searchbarInput;
     searchBarInput.setAttribute("placeholder", "Rechercher une recette, un ingrédient...");
 
     const searchBarIcone = document.createElement("img");
-    searchBarIcone.setAttribute("class", "searchbar-icone");
+    searchBarIcone.className = styles.searchbarIcone;
     searchBarIcone.setAttribute("src", "assets/icones/Group 4.svg");
 
     searchBarContainer.appendChild(searchBarInput);

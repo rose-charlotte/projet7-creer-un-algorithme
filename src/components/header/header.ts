@@ -1,16 +1,17 @@
-import { searchBarComponent } from "./searchBar";
+import { searchBarComponent } from "../searchBar/searchBar";
+import styles from "./header.module.css";
 
 export function buildHeader(): HTMLElement {
     const body = document.querySelector("body");
     const headerContainer = document.createElement("header");
-    headerContainer.setAttribute("class", "header-container");
+    headerContainer.className = styles.headerContainer;
 
     const mainHeader = document.createElement("div");
-    mainHeader.setAttribute("class", "main-header");
+    mainHeader.className = styles.mainHeader;
 
     const headerTitleContainer = document.createElement("div");
     headerTitleContainer.ariaLabel = "Enseigne les petits plats";
-    headerTitleContainer.setAttribute("class", "header-title-container");
+    headerTitleContainer.className = styles.headerTitleContainer;
 
     const mainTitle = document.createElement("img");
     mainTitle.setAttribute("src", "assets/icones/Les petits plats.svg");
@@ -21,11 +22,11 @@ export function buildHeader(): HTMLElement {
     logo.ariaLabel = "logo de les petits plats";
 
     const descriptionTextContainer = document.createElement("div");
-    descriptionTextContainer.setAttribute("class", "description-text-container");
+    descriptionTextContainer.className = styles.descriptionTextContainer;
     descriptionTextContainer.ariaLabel = "container de la description";
 
     const descriptiontext = document.createElement("p");
-    descriptiontext.setAttribute("class", "description-text");
+    descriptiontext.className = styles.descriptionText;
     descriptiontext.textContent = "Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses";
 
     const searchBarContainer = searchBarComponent();
