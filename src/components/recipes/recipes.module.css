@@ -10,6 +10,7 @@
 .imgContainer {
     width: 380px;
     height: 253px;
+    position: relative;
 }
 
 .recipeImg {
@@ -85,3 +86,15 @@
     gap: 20px;
 }
 
+.timer{
+    background-color:#FFD15B ;
+    position: absolute;
+    top: 9%;
+    left: 78%;
+    z-index: 1;
+    border-radius: 21px;
+    padding:5px 15px ;
+    font-family: "Manrope";
+    font-size: 12px;
+    width: 42px;
+}
