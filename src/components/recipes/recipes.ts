@@ -14,6 +14,10 @@ export function buildRecipes(recipe: Recipe): HTMLElement {
     img.className = styles.recipeImg;
     img.src = `assets/images/photo/${recipe.image}`;
 
+    const timer = document.createElement("div");
+    timer.className = styles.timer;
+    timer.textContent = `${recipe.time} min`;
+
     const recipeTitle = document.createElement("h1");
     recipeTitle.className = styles.recipeTitle;
     recipeTitle.textContent = recipe.name;
@@ -41,6 +45,8 @@ export function buildRecipes(recipe: Recipe): HTMLElement {
     recipeListContainer?.appendChild(recipeContainer);
     recipeContainer.appendChild(imgContainer);
     imgContainer.appendChild(img);
+    imgContainer.appendChild(timer);
+
     recipeContainer.appendChild(recipeTitle);
     recipeContainer.appendChild(recetteTitle);
     recipeContainer.appendChild(recipeInstructions);
