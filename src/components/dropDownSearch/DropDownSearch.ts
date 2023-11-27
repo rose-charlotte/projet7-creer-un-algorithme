@@ -68,7 +68,6 @@ export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
 
     function onToggleOpenClose(open: boolean) {
         if (!open) {
-            console.log(open);
             uiState.dropDownContainer.classList.toggle(styles.hidden);
         }
     }

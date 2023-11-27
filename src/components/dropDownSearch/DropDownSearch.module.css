@@ -93,6 +93,10 @@
 
 .dropDownContainer li {
     font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 90%;
 }
 
 .arrow-down-hidden {
@@ -105,7 +109,13 @@
 
 .filterElement {
     cursor: pointer;
+
 }
+
+.filterElement:hover{
+    background-color: #FFD15B;
+}
+
 .searchbarInput {
     width: 93%;
     padding: 1%;
@@ -137,3 +147,7 @@
     border-radius: 11px;
 }
 .dropDownFilterContainer{}
+
+.dropdownSearchListUnselectedItems{
+
+}
