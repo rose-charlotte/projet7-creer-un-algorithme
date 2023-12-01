@@ -1,8 +1,7 @@
 import { searchBarComponent } from "../searchBar/searchBar";
 import styles from "./header.module.css";
 
-export function buildHeader(): HTMLElement {
-    const body = document.querySelector("body");
+export function Header(): HTMLElement {
     const headerContainer = document.createElement("header");
     headerContainer.className = styles.headerContainer;
 
@@ -31,7 +30,6 @@ export function buildHeader(): HTMLElement {
 
     const searchBarContainer = searchBarComponent();
 
-    body?.appendChild(headerContainer);
     headerContainer.appendChild(mainHeader);
     mainHeader.appendChild(headerTitleContainer);
     headerTitleContainer.appendChild(mainTitle);

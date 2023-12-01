@@ -7,18 +7,30 @@ import { DropDownSearchList, DropDownSearchListProps } from "./DropDownSearchLis
 
 import styles from "./DropDownSearch.module.css";
 
-export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
+export function DropDownSearch(props: DropDownSearchProps): ComponentRender<DropDownSearchProps> {
     class InitialState {
         private _items: string[];
+        private _selectedItems: string[];
 
         constructor() {
             this._items = props.items;
+            this._selectedItems = props.selectedItems;
         }
         public get items(): string[] {
             return this._items;
         }
         public set items(value: string[]) {
             this._items = value;
+
+            renderDropDownSearchBar();
+            renderDropDownSearchList();
+        }
+
+        public get selectedItems(): string[] {
+            return this._selectedItems;
+        }
+        public set selectedItems(value: string[]) {
+            this._selectedItems = value;
 
             renderDropDownSearchBar();
             renderDropDownSearchList();
@@ -32,7 +44,14 @@ export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
         dropDownContainer: document.createElement("div"),
     };
 
-    return initialRender();
+    return {
+        element: initialRender(),
+        updateProps,
+    };
+
+    function updateProps(updatedProps: Partial<DropDownSearchProps>) {
+        state.selectedItems = updatedProps.selectedItems!;
+    }
 
     function renderHeader(): void {
         uiState.header = DropDownSearchHeader({
@@ -54,13 +73,14 @@ export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
         if (uiState.dropDownSearchList) {
             uiState.dropDownSearchList.updateProps({
                 items: state.items,
-                onItemSelected,
+                selectedItems: state.selectedItems,
             });
-            console.log("les items trié", state.items);
         } else {
             uiState.dropDownSearchList = DropDownSearchList({
                 items: state.items,
+                selectedItems: state.selectedItems,
                 onItemSelected,
+                onItemRemoved,
             });
             uiState.dropDownContainer.appendChild(uiState.dropDownSearchList.element);
         }
@@ -82,20 +102,7 @@ export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
             const foundIngredients = props.items.filter(item => item.includes(value));
             state.items = foundIngredients;
             uiState.debounceTimer = undefined;
-            console.log(foundIngredients);
         }, 500);
-    }
-
-    function onItemSelected(item: string) {
-        console.log(item);
-        const selectedItemContainer = document.createElement("div");
-
-        selectedItemContainer.className = "selectedItemContainer";
-        selectedItemContainer.textContent = item;
-
-        const filtersContainer = document.querySelector(".filters-container");
-        filtersContainer?.appendChild(selectedItemContainer);
-        props.onItemSelected(item);
     }
 
     function initialRender(): HTMLElement {
@@ -108,15 +115,37 @@ export function DropDownSearch(props: DropDownSearchProps): HTMLElement {
 
         renderDropDownSearchBar();
         renderDropDownSearchList();
+
+        uiState.selectedFiltersContainer = document.createElement("div");
+        uiState.selectedFiltersContainer.className = styles.selectedItemsContainer;
+
         uiState.container.appendChild(uiState.dropDownContainer);
+
+        uiState.container.appendChild(uiState.selectedFiltersContainer);
         return uiState.container;
+    }
+
+    function onItemSelected(item: string) {
+        const element = document.createElement("div");
+        element.className = styles.selectedItem;
+        element.textContent = item;
+        uiState.selectedFiltersContainer!.appendChild(element);
+
+        props.onItemSelected(item);
+    }
+
+    function onItemRemoved(item: string) {
+        props.onItemRemoved(item);
     }
 }
 
 export interface DropDownSearchProps {
     title: string;
     items: string[];
+    selectedItems: string[];
+
     onItemSelected: (item: string) => void;
+    onItemRemoved: (item: string) => void;
 }
 
 interface UIState {
@@ -126,4 +155,5 @@ interface UIState {
     dropDownSearchBar?: HTMLElement;
     dropDownSearchList?: ComponentRender<DropDownSearchListProps>;
     debounceTimer?: number;
+    selectedFiltersContainer?: HTMLElement;
 }

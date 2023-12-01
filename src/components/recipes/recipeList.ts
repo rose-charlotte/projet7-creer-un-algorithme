@@ -1,17 +1,19 @@
-import { buildRecipes } from "./recipes";
-import { getAllRecipes } from "../../utils/recipeRepository";
+import { Recipes } from "./recipes";
 import styles from "./recipes.module.css";
+import { Recipe } from "../../types/Recipe";
 
-export function buildRecipeList(): HTMLElement {
-    const body = document.querySelector("body");
+export function RecipeList(props: RecipeListProps): HTMLElement {
     const recipeListContainer = document.createElement("div");
     recipeListContainer.className = styles.recipeListContainer;
-    getAllRecipes().forEach(recipe => {
-        const recipeContainer = buildRecipes(recipe);
+
+    props.recipes.forEach(recipe => {
+        const recipeContainer = Recipes(recipe);
         recipeListContainer.appendChild(recipeContainer);
     });
 
-    body?.appendChild(recipeListContainer);
-
     return recipeListContainer;
+}
+
+export interface RecipeListProps {
+    recipes: Recipe[];
 }
