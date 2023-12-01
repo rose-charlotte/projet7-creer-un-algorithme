@@ -6,42 +6,104 @@ export function DropDownSearchList(props: DropDownSearchListProps): ComponentRen
     const dropDownSearchListContainer = document.createElement("div");
     dropDownSearchListContainer.className = styles.dropdownSearchListContainer;
 
-    renderItems(props.items);
+    renderItems(props.items, props.selectedItems);
 
     return {
         element: dropDownSearchListContainer,
         updateProps: update,
     };
 
-    function renderItems(items: string[]): void {
+    function renderItems(items: string[], selectedItems: string[]): void {
         const filterElementListSelectedItems = document.createElement("ul");
         filterElementListSelectedItems.className = styles.dropdownSearchListSelectedItems;
 
         const filterElementListUnselectedItems = document.createElement("ul");
         filterElementListUnselectedItems.className = styles.dropdownSearchListUnselectedItems;
 
-        items.forEach(ingredient => {
-            const filterElement = document.createElement("li");
-            filterElement.className = styles.filterElement;
+        const selectedItemsSet = new Set(selectedItems);
 
-            filterElement.textContent = ingredient;
-            filterElement.dataset.item = ingredient;
-            filterElement.addEventListener("click", selectedElement);
-            function selectedElement() {
-                props.onItemSelected(ingredient);
+        items.forEach(item => {
+            if (selectedItemsSet.has(item)) {
+                renderSelectedItem(item, filterElementListSelectedItems);
+            } else {
+                renderUnselectedItem(item, filterElementListUnselectedItems);
             }
-            filterElementListUnselectedItems.appendChild(filterElement);
+
+            // const filterElement = document.createElement("li");
+            // filterElement.className = styles.filterElement;
+
+            // filterElement.textContent = item;
+            // filterElement.dataset.item = item;
+            // filterElement.addEventListener("click", selectedElement);
+
+            // function selectedElement() {
+            //     const closeBtn = document.createElement("img");
+            //     closeBtn.src = "assets/icones/closeBtn.svg";
+            //     closeBtn.alt = "close Button";
+            //     closeBtn.addEventListener("click", () => console.log("je t'enlève"));
+            //     filterElement.removeEventListener("click", selectedElement);
+
+            //     filterElementListSelectedItems.appendChild(filterElement);
+            //     filterElement.appendChild(closeBtn);
+
+            //     props.onItemSelected(item);
+            // }
+
+            // filterElementListUnselectedItems.appendChild(filterElement);
         });
 
         dropDownSearchListContainer.replaceChildren(filterElementListSelectedItems, filterElementListUnselectedItems);
     }
 
+    function renderSelectedItem(item: string, listElement: HTMLElement) {
+        const filterElement = document.createElement("li");
+        filterElement.className = styles.filterElement;
+        filterElement.textContent = item;
+        filterElement.dataset.item = item;
+
+        const closeBtn = document.createElement("img");
+        closeBtn.src = "assets/icones/closeBtn.svg";
+        closeBtn.alt = "close Button";
+        closeBtn.dataset.item = item;
+        closeBtn.addEventListener("click", removeElement);
+
+        filterElement.appendChild(closeBtn);
+
+        listElement.appendChild(filterElement);
+    }
+
+    function renderUnselectedItem(item: string, listElement: HTMLElement) {
+        const filterElement = document.createElement("li");
+        filterElement.className = styles.filterElement;
+        filterElement.textContent = item;
+        filterElement.dataset.item = item;
+        filterElement.addEventListener("click", selectElement);
+
+        listElement.appendChild(filterElement);
+    }
+
     function update(updatedProps: Partial<DropDownSearchListProps>): void {
-        renderItems(updatedProps.items ?? props.items);
+        renderItems(updatedProps.items ?? props.items, updatedProps.selectedItems ?? props.selectedItems);
+    }
+
+    function selectElement(e: MouseEvent) {
+        const item: string = (<HTMLElement>e.currentTarget).dataset.item!;
+
+        props.onItemSelected(item);
+    }
+
+    function removeElement(e: MouseEvent) {
+        const item: string = (<HTMLElement>e.target).dataset.item!;
+        console.log(item);
+
+        props.onItemRemoved(item);
     }
 }
 
 export interface DropDownSearchListProps {
     items: string[];
+    selectedItems: string[];
+
     onItemSelected: (item: string) => void;
+    onItemRemoved: (item: string) => void;
 }

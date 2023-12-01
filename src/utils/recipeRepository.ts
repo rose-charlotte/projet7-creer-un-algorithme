@@ -3,9 +3,22 @@ import { type Ingredient } from "../types/Ingredient";
 import { recipes as jsRecipes } from "../../assets/data/recipes";
 
 const recipes: Recipe[] = mapRecipes();
+const { appliances, ingredients, ustensils } = getAllFilters(recipes);
 
 export function getAllRecipes(): Recipe[] {
     return recipes;
+}
+
+export function getAllAppliances(): string[] {
+    return appliances;
+}
+
+export function getAllIngredients(): string[] {
+    return ingredients;
+}
+
+export function getAllUstensils(): string[] {
+    return ustensils;
 }
 
 function getNumber(value: any): number | undefined {
@@ -44,4 +57,28 @@ function mapRecipes(): Recipe[] {
         time: recipe.time,
         ustensils: recipe.ustensils,
     }));
+}
+
+interface GetAllFiltersResult {
+    ingredients: string[];
+    appliances: string[];
+    ustensils: string[];
+}
+
+function getAllFilters(recipes: Recipe[]): GetAllFiltersResult {
+    const ingredientsSet: Set<string> = new Set();
+    const appliancesSet: Set<string> = new Set();
+    const ustensilsSet: Set<string> = new Set();
+
+    for (const recipe of recipes) {
+        recipe.ingredients.forEach(ingredient => ingredientsSet.add(ingredient.ingredient.toLowerCase()));
+        appliancesSet.add(recipe.appliance.toLowerCase());
+        recipe.ustensils.forEach(ustensil => ustensilsSet.add(ustensil.toLowerCase()));
+    }
+
+    return {
+        ingredients: Array.from(ingredientsSet).sort(),
+        appliances: Array.from(appliancesSet).sort(),
+        ustensils: Array.from(ustensilsSet).sort(),
+    };
 }

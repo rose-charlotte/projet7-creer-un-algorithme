@@ -1,43 +1,20 @@
 //regroupe l'ensemble des 3 filtres
 
-import { getAllRecipes } from "../../utils/recipeRepository.ts";
+import { ComponentRender } from "../../ComponentRender.ts";
 import { DropDownSearch } from "../dropDownSearch/DropDownSearch.ts";
 
 import styles from "./filters.module.css";
 
 //Get all  recipes ingredients, put them all in lowercase, put them in a set and tyransform it into  an array:
 
-const t0 = performance.now();
-const allRecipesIngredients: string[] = getAllRecipes().flatMap(recipe =>
-    recipe.ingredients.map(ingredient => ingredient.ingredient)
-);
-const toLowercaseIngredients = allRecipesIngredients.map(ingredient => ingredient.toLowerCase());
+//const t0 = performance.now();
 
-const setIngredients = new Set(toLowercaseIngredients);
-const ingredients = Array.from(setIngredients);
-const t1 = performance.now();
-console.log(`call to make it took ${t1 - t0} miliseconds`);
-
-//Same for all appliances
-
-const allRecipesAppliances: string[] = getAllRecipes().map(recipe => recipe.appliance);
-const toLowerCaseAppliances = allRecipesAppliances.map(appliance => appliance.toLowerCase());
-const setAppliances = new Set(toLowerCaseAppliances);
-const appliances = Array.from(setAppliances);
-
-//Same for Ustensils
-
-const allRecipesUstensils: string[] = getAllRecipes().flatMap(recipe => recipe.ustensils.map(ustensil => ustensil));
-const toLowerCaseUstensils = allRecipesUstensils.map(ustensil => ustensil.toLowerCase());
-const setUstensils = new Set(toLowerCaseUstensils);
-const ustensils = Array.from(setUstensils);
-
-console.log(ustensils);
+//const t1 = performance.now();
+//console.log(`call to make it took ${t1 - t0} miliseconds`);
 
 // function that handle the dropDown display
 
-export function buildFilters(): HTMLElement {
-    const body = document.querySelector("body");
+export function Filters(props: FiltersProps): ComponentRender<FiltersProps> {
     const filtersContainer = document.createElement("div");
     filtersContainer.className = styles.filtersContainer;
 
@@ -46,36 +23,69 @@ export function buildFilters(): HTMLElement {
 
     const dropDownIngredientFilter = DropDownSearch({
         title: "Ingredient",
-        items: ingredients,
-        onItemSelected,
+        items: props.ingredients,
+        selectedItems: props.selectedIngredients,
+        onItemSelected: props.onIngredientAdded,
+        onItemRemoved: props.onIngredientRemoved,
     });
 
     const dropDownApplianceFilter = DropDownSearch({
         title: "Appareils",
-        items: appliances,
-        onItemSelected,
+        items: props.appliances,
+        selectedItems: props.selectedAppliances,
+        onItemSelected: props.onApplianceAdded,
+        onItemRemoved: props.onApplianceRemoved,
     });
 
     const dropDownUstensilFilter = DropDownSearch({
         title: "Ustensiles",
-        items: ustensils,
-        onItemSelected,
+        items: props.ustensils,
+        selectedItems: props.selectedUstensils,
+        onItemSelected: props.onUstensilAdded,
+        onItemRemoved: props.onUstensilRemoved,
     });
 
-    body?.appendChild(filtersContainer);
-
     filtersContainer.appendChild(filterContainer);
-    filterContainer.appendChild(dropDownIngredientFilter);
-    filterContainer.appendChild(dropDownApplianceFilter);
-    filterContainer.appendChild(dropDownUstensilFilter);
 
-    return filtersContainer;
+    filterContainer.appendChild(dropDownIngredientFilter.element);
+    filterContainer.appendChild(dropDownApplianceFilter.element);
+    filterContainer.appendChild(dropDownUstensilFilter.element);
 
-    function onItemSelected(item: string) {
-        console.log(item);
-        const selectedItemContainer = document.createElement("div");
-        selectedItemContainer.className = styles.selectedItemContainer;
-        selectedItemContainer.textContent = item;
-        filtersContainer.appendChild(selectedItemContainer);
+    function updateProps(updatedProps: Partial<FiltersProps>) {
+        if (updatedProps.selectedAppliances) {
+            dropDownApplianceFilter.updateProps({ selectedItems: updatedProps.selectedAppliances });
+        }
+
+        if (updatedProps.selectedIngredients) {
+            dropDownIngredientFilter.updateProps({ selectedItems: updatedProps.selectedIngredients });
+        }
+
+        if (updatedProps.selectedUstensils) {
+            dropDownUstensilFilter.updateProps({ selectedItems: updatedProps.selectedUstensils });
+        }
     }
+
+    return {
+        element: filtersContainer,
+        updateProps,
+    };
+}
+
+export interface FiltersProps {
+    appliances: string[];
+    ingredients: string[];
+    ustensils: string[];
+
+    selectedAppliances: string[];
+    selectedIngredients: string[];
+    selectedUstensils: string[];
+
+    onIngredientAdded: (ingredient: string) => void;
+    onIngredientRemoved: (ingredient: string) => void;
+
+    onApplianceAdded: (appliance: string) => void;
+    onApplianceRemoved: (appliance: string) => void;
+
+    onUstensilAdded: (ustensil: string) => void;
+    onUstensilRemoved: (ustensil: string) => void;
 }

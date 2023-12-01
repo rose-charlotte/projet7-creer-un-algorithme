@@ -2,7 +2,7 @@ import { Ingredient } from "../../types/Ingredient";
 import { Recipe } from "../../types/Recipe";
 import styles from "./recipes.module.css";
 
-export function buildRecipes(recipe: Recipe): HTMLElement {
+export function Recipes(recipe: Recipe): HTMLElement {
     const recipeListContainer = document.querySelector("recipeList-container");
 
     const recipeContainer = document.createElement("article");

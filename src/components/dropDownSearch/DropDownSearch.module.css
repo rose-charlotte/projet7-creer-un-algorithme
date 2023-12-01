@@ -2,8 +2,15 @@
     display: none;
 }
 
-.selectedItemContainer {
-    width: 50px;
+.selectedItemsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 195px;
+    margin-top: 10px;
+}
+
+.selectedItem {
+    width: 195px;
     background-color: yellow;
 }
 
@@ -22,12 +29,13 @@
     gap: 26px;
     width: 195px;
     height: 300px;
-    position: relative;
-    z-index: 1;
+    position: absolute;
     overflow-y: scroll;
     border-bottom-left-radius: 11px;
     border-bottom-right-radius: 11px;
+    z-index: 2;
 }
+
 .arrowDown {
     display: flex;
     padding-left: 63px;
@@ -151,3 +159,14 @@
 .dropdownSearchListUnselectedItems{
 
 }
+.dropdownSearchListSelectedItems{
+    background-color: #FFD15B;
+    margin-bottom: 30px;
+}
+
+.dropdownSearchListSelectedItems li {
+    display: flex;
+    justify-content: space-between;
+
+}
+    
