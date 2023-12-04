@@ -63,9 +63,10 @@ function recipeMatchUstensils(recipe: Recipe, selectedUstensils: Set<string>): b
     if (selectedUstensils.size === 0) {
         return true;
     }
-    const recipeUstensils = new Set(recipe.ustensils);
+    const recipeUstensils = new Set(recipe.ustensils.map(ustensil => ustensil.toLowerCase()));
     console.log(recipeUstensils);
     for (const ustensil of selectedUstensils) {
+        console.log(ustensil);
         if (!recipeUstensils.has(ustensil)) {
             return false;
         }
