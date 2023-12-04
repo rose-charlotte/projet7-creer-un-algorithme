@@ -56,7 +56,12 @@ function recipeMatchAppliances(recipe: Recipe, selectedAppliances: Set<string>):
     if (selectedAppliances.size === 0) {
         return true;
     }
-    //console.log(selectedAppliances);
+    for (const appliance of selectedAppliances) {
+        if (recipe.appliance.toLowerCase() !== appliance) {
+            return false;
+        }
+    }
+    return true;
 }
 
 function recipeMatchUstensils(recipe: Recipe, selectedUstensils: Set<string>): boolean {
@@ -66,7 +71,6 @@ function recipeMatchUstensils(recipe: Recipe, selectedUstensils: Set<string>): b
     const recipeUstensils = new Set(recipe.ustensils.map(ustensil => ustensil.toLowerCase()));
     console.log(recipeUstensils);
     for (const ustensil of selectedUstensils) {
-        console.log(ustensil);
         if (!recipeUstensils.has(ustensil)) {
             return false;
         }
