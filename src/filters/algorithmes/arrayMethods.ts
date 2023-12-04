@@ -56,12 +56,21 @@ function recipeMatchAppliances(recipe: Recipe, selectedAppliances: Set<string>):
     if (selectedAppliances.size === 0) {
         return true;
     }
+    //console.log(selectedAppliances);
 }
 
 function recipeMatchUstensils(recipe: Recipe, selectedUstensils: Set<string>): boolean {
     if (selectedUstensils.size === 0) {
         return true;
     }
+    const recipeUstensils = new Set(recipe.ustensils);
+    console.log(recipeUstensils);
+    for (const ustensil of selectedUstensils) {
+        if (!recipeUstensils.has(ustensil)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 function recipeMatchGlobalSearch(recipe: Recipe, globalSearch: string | undefined): boolean {
