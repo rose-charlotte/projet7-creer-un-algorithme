@@ -24,12 +24,19 @@ function buildPage(): void {
         }
 
         uiState.debounceTimer = setTimeout(() => {
-            const globalSearch = value;
-            console.log(globalSearch);
+            filterGlobalSearch(value);
             uiState.debounceTimer = undefined;
         }, 500);
+    }
 
-        //filterElements();
+    function filterGlobalSearch(value: string) {
+        // console.log(value);
+        // const ingredients: string[] = getAllIngredients();
+        // console.log(ingredients);
+        // const foundedIngredient = ingredients.filter(ingredient => ingredient.includes(value));
+        // console.log(foundedIngredient);
+        uiState.globalSearch = value;
+        filterElements();
     }
 
     const filters = Filters({
@@ -117,9 +124,9 @@ function buildPage(): void {
             uiState.selectedIngredients,
             uiState.selectedAppliances,
             uiState.selectedUstensils,
-            undefined
+            uiState.globalSearch
         );
-
+        console.log(filteredRecipes);
         renderRecipeList(filteredRecipes);
     }
 }
@@ -130,6 +137,7 @@ interface UIState {
     selectedIngredients: Set<string>;
     selectedUstensils: Set<string>;
     debounceTimer?: number;
+    globalSearch?: string;
 }
 
 buildPage();

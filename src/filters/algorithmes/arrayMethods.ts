@@ -82,7 +82,15 @@ function recipeMatchGlobalSearch(recipe: Recipe, globalSearch: string | undefine
     if (!globalSearch) {
         return true;
     }
-    if (globalSearch) {
-        console.log("ok");
+    const recipeIngredients = new Set(recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase()));
+    const recipeUstensils = new Set(recipe.ustensils.map(ustensil => ustensil.toLowerCase()));
+
+    if (
+        !recipeIngredients.has(globalSearch) &&
+        !recipeUstensils.has(globalSearch) &&
+        recipe.appliance.toLowerCase() !== globalSearch
+    ) {
+        return false;
     }
+    return true;
 }
