@@ -14,7 +14,23 @@ function buildPage(): void {
 
     const allRecipes: Recipe[] = getAllRecipes();
 
-    document.body.appendChild(Header());
+    const header = Header({ onChange });
+    document.body.appendChild(header);
+
+    function onChange(value: string) {
+        if (uiState.debounceTimer) {
+            clearTimeout(uiState.debounceTimer);
+            uiState.debounceTimer = undefined;
+        }
+
+        uiState.debounceTimer = setTimeout(() => {
+            const globalSearch = value;
+            console.log(globalSearch);
+            uiState.debounceTimer = undefined;
+        }, 500);
+
+        //filterElements();
+    }
 
     const filters = Filters({
         appliances: getAllAppliances(),
@@ -113,6 +129,7 @@ interface UIState {
     selectedAppliances: Set<string>;
     selectedIngredients: Set<string>;
     selectedUstensils: Set<string>;
+    debounceTimer?: number;
 }
 
 buildPage();

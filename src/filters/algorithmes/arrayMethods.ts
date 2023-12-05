@@ -82,4 +82,7 @@ function recipeMatchGlobalSearch(recipe: Recipe, globalSearch: string | undefine
     if (!globalSearch) {
         return true;
     }
+    if (globalSearch) {
+        console.log("ok");
+    }
 }
