@@ -94,7 +94,6 @@ export function DropDownSearchList(props: DropDownSearchListProps): ComponentRen
 
     function removeElement(e: MouseEvent) {
         const item: string = (<HTMLElement>e.target).dataset.item!;
-        console.log(item);
 
         props.onItemRemoved(item);
     }

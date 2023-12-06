@@ -14,10 +14,10 @@ function buildPage(): void {
 
     const allRecipes: Recipe[] = getAllRecipes();
 
-    const header = Header({ onChange });
+    const header = Header({ onChange: onGlobalFilterChange });
     document.body.appendChild(header);
 
-    function onChange(value: string) {
+    function onGlobalFilterChange(value: string) {
         if (uiState.debounceTimer) {
             clearTimeout(uiState.debounceTimer);
             uiState.debounceTimer = undefined;
@@ -30,13 +30,36 @@ function buildPage(): void {
     }
 
     function filterGlobalSearch(value: string) {
-        // console.log(value);
-        // const ingredients: string[] = getAllIngredients();
-        // console.log(ingredients);
-        // const foundedIngredient = ingredients.filter(ingredient => ingredient.includes(value));
-        // console.log(foundedIngredient);
-        uiState.globalSearch = value;
+        // 2. find related ustensils, ingredients and applianances and update the selected ones
+
+        const foundIngredients = getAllIngredients().filter(ingredient => ingredient.includes(value));
+        if (foundIngredients.length > 0) {
+            foundIngredients.forEach(ingredient => uiState.selectedIngredients.add(ingredient));
+        }
+
+        const foundUstensils = getAllUstensils().filter(ustensil => ustensil.includes(value));
+        if (foundUstensils.length > 0) {
+            foundUstensils.forEach(ustensil => uiState.selectedUstensils.add(ustensil));
+        }
+
+        const foundAppliance = getAllAppliances().filter(appliance => appliance.includes(value));
+        if (foundAppliance.length > 0) {
+            foundAppliance.forEach(appliance => uiState.selectedAppliances.add(appliance));
+        }
+
+        // 1. set uiState.globalSearch
+        if (foundIngredients.length === 0 && foundUstensils.length === 0 && foundAppliance.length === 0) {
+            uiState.globalSearch = value;
+        }
+
+        // 3. call filterElements
         filterElements();
+        // 4. use filters.updateProps
+        filters.updateProps({
+            selectedIngredients: Array.from(uiState.selectedIngredients),
+            selectedUstensils: Array.from(uiState.selectedUstensils),
+            selectedAppliances: Array.from(uiState.selectedAppliances),
+        });
     }
 
     const filters = Filters({
