@@ -11,9 +11,9 @@ function buildPage(): void {
         selectedIngredients: new Set(),
         selectedUstensils: new Set(),
 
-        globalSearchSelectedAppliances: new Set(),
+        //globalSearchSelectedAppliances: new Set(),
         globalSearchSelectedIngredients: new Set(),
-        globalSearchSelectedUstensils: new Set(),
+        //globalSearchSelectedUstensils: new Set(),
     };
 
     const allRecipes: Recipe[] = getAllRecipes();
@@ -38,9 +38,9 @@ function buildPage(): void {
         // 1. set uiState.globalSearch
         uiState.globalSearch = value;
 
-        uiState.globalSearchSelectedAppliances.clear();
+        // uiState.globalSearchSelectedAppliances.clear();
         uiState.globalSearchSelectedIngredients.clear();
-        uiState.globalSearchSelectedUstensils.clear();
+        //  uiState.globalSearchSelectedUstensils.clear();
 
         if (value) {
             // 2. find related ustensils, ingredients and applianances and update the selected ones
@@ -49,15 +49,15 @@ function buildPage(): void {
                 foundIngredients.forEach(ingredient => uiState.globalSearchSelectedIngredients.add(ingredient));
             }
 
-            const foundUstensils = getAllUstensils().filter(ustensil => ustensil.includes(value));
-            if (foundUstensils.length > 0) {
-                foundUstensils.forEach(ustensil => uiState.globalSearchSelectedUstensils.add(ustensil));
-            }
+            // const foundUstensils = getAllUstensils().filter(ustensil => ustensil.includes(value));
+            // if (foundUstensils.length > 0) {
+            //     foundUstensils.forEach(ustensil => uiState.globalSearchSelectedUstensils.add(ustensil));
+            // }
 
-            const foundAppliance = getAllAppliances().filter(appliance => appliance.includes(value));
-            if (foundAppliance.length > 0) {
-                foundAppliance.forEach(appliance => uiState.globalSearchSelectedAppliances.add(appliance));
-            }
+            // const foundAppliance = getAllAppliances().filter(appliance => appliance.includes(value));
+            // if (foundAppliance.length > 0) {
+            //     foundAppliance.forEach(appliance => uiState.globalSearchSelectedAppliances.add(appliance));
+            // }
         }
 
         // 3. call filterElements
@@ -112,7 +112,7 @@ function buildPage(): void {
 
     function onApplianceRemoved(appliance: string) {
         uiState.selectedAppliances.delete(appliance);
-        uiState.globalSearchSelectedAppliances.delete(appliance);
+        //  uiState.globalSearchSelectedAppliances.delete(appliance);
         // filters.updateProps({
         //     selectedAppliances: [...uiState.selectedAppliances, ...uiState.globalSearchSelectedAppliances],
         // });
@@ -146,7 +146,7 @@ function buildPage(): void {
 
     function onUstensilRemoved(ustensil: string) {
         uiState.selectedUstensils.delete(ustensil);
-        uiState.globalSearchSelectedUstensils.delete(ustensil);
+        //uiState.globalSearchSelectedUstensils.delete(ustensil);
         // filters.updateProps({
         //     selectedUstensils: [...uiState.selectedUstensils, ...uiState.globalSearchSelectedUstensils],
         // });
@@ -157,8 +157,10 @@ function buildPage(): void {
         const filteredRecipes: Recipe[] = filterWithArrayMethods(
             allRecipes,
             new Set([...uiState.selectedIngredients, ...uiState.globalSearchSelectedIngredients]),
-            new Set([...uiState.selectedAppliances, ...uiState.globalSearchSelectedAppliances]),
-            new Set([...uiState.selectedUstensils, ...uiState.globalSearchSelectedUstensils]),
+            uiState.selectedAppliances,
+            uiState.selectedUstensils,
+            // new Set([...uiState.selectedAppliances, ...uiState.globalSearchSelectedAppliances]),
+            // new Set([...uiState.selectedUstensils, ...uiState.globalSearchSelectedUstensils]),
             uiState.globalSearch
         );
         console.log(filteredRecipes);
@@ -166,8 +168,10 @@ function buildPage(): void {
 
         filters.updateProps({
             selectedIngredients: [...uiState.selectedIngredients, ...uiState.globalSearchSelectedIngredients],
-            selectedUstensils: [...uiState.selectedUstensils, ...uiState.globalSearchSelectedUstensils],
-            selectedAppliances: [...uiState.selectedAppliances, ...uiState.globalSearchSelectedAppliances],
+            // selectedUstensils: [...uiState.selectedUstensils, ...uiState.globalSearchSelectedUstensils],
+            // selectedAppliances: [...uiState.selectedAppliances, ...uiState.globalSearchSelectedAppliances],
+            selectedAppliances: [...uiState.selectedAppliances],
+            selectedUstensils: [...uiState.selectedUstensils],
         });
     }
 }
@@ -180,9 +184,9 @@ interface UIState {
     debounceTimer?: number;
 
     globalSearch?: string;
-    globalSearchSelectedAppliances: Set<string>;
+    //globalSearchSelectedAppliances: Set<string>;
     globalSearchSelectedIngredients: Set<string>;
-    globalSearchSelectedUstensils: Set<string>;
+    //globalSearchSelectedUstensils: Set<string>;
 }
 
 buildPage();

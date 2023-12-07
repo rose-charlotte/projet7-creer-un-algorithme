@@ -1,6 +1,11 @@
 import { Recipe } from "../../types/Recipe";
 import { executeAndLogTiming } from "../../utils/performance";
-import { recipeMatchAppliances, recipeMatchGlobalSearch, recipeMatchIngredients, recipeMatchUstensils } from "./common";
+import {
+    recipeMatchAppliances,
+    recipeMatchGlobalSearch,
+    recipeMatchIngredients,
+    recipeMatchUstensils,
+} from "./common.ts";
 
 export function filterWithNativeLoop(
     allRecipes: Recipe[],
@@ -23,9 +28,9 @@ export function filterWithNativeLoop(
 
         for (const recipe of allRecipes) {
             if (
-                recipeMatchAppliances(recipe, selectedAppliances) &&
-                recipeMatchIngredients(recipe, selectedIngredients) &&
-                recipeMatchUstensils(recipe, selectedUstensils) &&
+                (recipeMatchAppliances(recipe, selectedAppliances) &&
+                    recipeMatchIngredients(recipe, selectedIngredients) &&
+                    recipeMatchUstensils(recipe, selectedUstensils)) ||
                 recipeMatchGlobalSearch(recipe, globalSearch)
             ) {
                 filteredRecipes.push(recipe);
