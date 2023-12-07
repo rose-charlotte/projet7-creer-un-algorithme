@@ -1,11 +1,12 @@
 .filtersContainer {
     background-color: #ededed;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    flex-direction: row;
     padding-left: 134px;
     padding-top: 25px;
-    /* max-height: 100px; */
+    
+    align-items: center;
+    justify-content: space-between;
 }
 
 .filterContainer {
@@ -23,4 +24,12 @@
 .selectedItemContainer {
     width: 50px;
     background-color: yellow;
+}
+
+.numberOfRecipes{
+    font-family: "Anton";
+    font-size: 21px;
+    font-weight: 400;
+    padding-right: 300px;
+
 }

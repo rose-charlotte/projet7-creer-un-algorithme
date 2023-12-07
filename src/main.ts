@@ -11,8 +11,8 @@ import {
     getAllFilters,
 } from "./utils/recipeRepository";
 
-console.log(getAllIngredients());
 function buildPage(): void {
+    console.log(getAllRecipes().length);
     const uiState: UIState = {
         selectedAppliances: new Set(),
         selectedIngredients: new Set(),
@@ -91,6 +91,7 @@ function buildPage(): void {
         onIngredientRemoved,
         onUstensilAdded,
         onUstensilRemoved,
+        numberOfRecipes: getAllRecipes().length,
     });
 
     document.body.appendChild(filters.element);
@@ -131,6 +132,7 @@ function buildPage(): void {
         // filters.updateProps({
         //     selectedIngredients: [...uiState.selectedIngredients, ...uiState.globalSearchSelectedIngredients],
         // });
+        console.log(uiState.selectedIngredients);
         filterElements();
     }
 
@@ -170,7 +172,9 @@ function buildPage(): void {
             // new Set([...uiState.selectedUstensils, ...uiState.globalSearchSelectedUstensils]),
             uiState.globalSearch
         );
-        console.log(filteredRecipes);
+        console.log(new Set([...uiState.selectedIngredients, ...uiState.globalSearchSelectedIngredients]));
+        console.log(uiState.globalSearch);
+        console.log(filteredRecipes.length);
         renderRecipeList(filteredRecipes);
         getAllFilters(filteredRecipes);
         const { ingredients, appliances, ustensils } = getAllFilters(filteredRecipes);
@@ -185,6 +189,7 @@ function buildPage(): void {
             // selectedAppliances: [...uiState.selectedAppliances, ...uiState.globalSearchSelectedAppliances],
             selectedAppliances: [...uiState.selectedAppliances],
             selectedUstensils: [...uiState.selectedUstensils],
+            numberOfRecipes: filteredRecipes.length,
         });
     }
 }
