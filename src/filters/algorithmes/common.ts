@@ -53,7 +53,7 @@ export function recipeMatchUstensils(recipe: Recipe, selectedUstensils: Set<stri
 
 export function recipeMatchGlobalSearch(recipe: Recipe, globalSearch: string | undefined): boolean {
     if (!globalSearch) {
-        return true;
+        return false;
     }
 
     const lowerCaseGlobalSearch = globalSearch.toLowerCase();

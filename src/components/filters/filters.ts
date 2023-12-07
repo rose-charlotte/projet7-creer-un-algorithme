@@ -50,56 +50,17 @@ export function Filters(props: FiltersProps): ComponentRender<FiltersProps> {
     filtersContainer.appendChild(numberOfRecipes);
 
     function updateProps(updatedProps: Partial<FiltersProps>) {
-        if (updatedProps.selectedAppliances) {
-            dropDownApplianceFilter.updateProps({
-                selectedItems: updatedProps.selectedAppliances,
+        if (updatedProps.ingredients || updatedProps.ustensils || updatedProps.appliances) {
+            dropDownIngredientFilter.updateProps({
+                items: updatedProps.ingredients,
+                selectedItems: updatedProps.selectedIngredients,
             });
-        }
 
-        if (updatedProps.selectedIngredients) {
-            dropDownIngredientFilter.updateProps({ selectedItems: updatedProps.selectedIngredients });
-        }
+            dropDownApplianceFilter.updateProps({
+                items: updatedProps.appliances,
+                selectedItems: updatedProps.selectedAppliances,
+            });
 
-        if (updatedProps.selectedUstensils) {
-            dropDownUstensilFilter.updateProps({ selectedItems: updatedProps.selectedUstensils });
-        }
-        if (updatedProps.appliances) {
-            dropDownIngredientFilter.updateProps({
-                items: updatedProps.ingredients,
-                selectedItems: updatedProps.selectedIngredients,
-            });
-            dropDownApplianceFilter.updateProps({
-                items: updatedProps.appliances,
-                selectedItems: updatedProps.selectedAppliances,
-            });
-            dropDownUstensilFilter.updateProps({
-                items: updatedProps.ustensils,
-                selectedItems: updatedProps.selectedUstensils,
-            });
-        }
-        if (updatedProps.ingredients) {
-            dropDownIngredientFilter.updateProps({
-                items: updatedProps.ingredients,
-                selectedItems: updatedProps.selectedIngredients,
-            });
-            dropDownApplianceFilter.updateProps({
-                items: updatedProps.appliances,
-                selectedItems: updatedProps.selectedAppliances,
-            });
-            dropDownUstensilFilter.updateProps({
-                items: updatedProps.ustensils,
-                selectedItems: updatedProps.selectedUstensils,
-            });
-        }
-        if (updatedProps.ustensils) {
-            dropDownIngredientFilter.updateProps({
-                items: updatedProps.ingredients,
-                selectedItems: updatedProps.selectedIngredients,
-            });
-            dropDownApplianceFilter.updateProps({
-                items: updatedProps.appliances,
-                selectedItems: updatedProps.selectedAppliances,
-            });
             dropDownUstensilFilter.updateProps({
                 items: updatedProps.ustensils,
                 selectedItems: updatedProps.selectedUstensils,
