@@ -3,8 +3,15 @@ import { Header } from "./components/header/header";
 import { RecipeList } from "./components/recipes/recipeList";
 import { filterWithArrayMethods } from "./filters/algorithmes/arrayMethods";
 import { Recipe } from "./types/Recipe";
-import { getAllRecipes, getAllAppliances, getAllIngredients, getAllUstensils } from "./utils/recipeRepository";
+import {
+    getAllRecipes,
+    getAllAppliances,
+    getAllIngredients,
+    getAllUstensils,
+    getAllFilters,
+} from "./utils/recipeRepository";
 
+console.log(getAllIngredients());
 function buildPage(): void {
     const uiState: UIState = {
         selectedAppliances: new Set(),
@@ -165,8 +172,14 @@ function buildPage(): void {
         );
         console.log(filteredRecipes);
         renderRecipeList(filteredRecipes);
+        getAllFilters(filteredRecipes);
+        const { ingredients, appliances, ustensils } = getAllFilters(filteredRecipes);
+        console.log(ingredients, appliances, ustensils);
 
         filters.updateProps({
+            ingredients: ingredients,
+            appliances: appliances,
+            ustensils: ustensils,
             selectedIngredients: [...uiState.selectedIngredients, ...uiState.globalSearchSelectedIngredients],
             // selectedUstensils: [...uiState.selectedUstensils, ...uiState.globalSearchSelectedUstensils],
             // selectedAppliances: [...uiState.selectedAppliances, ...uiState.globalSearchSelectedAppliances],

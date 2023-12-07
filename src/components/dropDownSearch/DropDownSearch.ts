@@ -50,6 +50,7 @@ export function DropDownSearch(props: DropDownSearchProps): ComponentRender<Drop
     };
 
     function updateProps(updatedProps: Partial<DropDownSearchProps>) {
+        state.items = updatedProps.items!;
         state.selectedItems = updatedProps.selectedItems!;
     }
 

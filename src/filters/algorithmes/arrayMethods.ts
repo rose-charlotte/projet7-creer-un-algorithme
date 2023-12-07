@@ -21,9 +21,9 @@ export function filterWithArrayMethods(
 
         return allRecipes.filter(
             recipe =>
-                (recipeMatchAppliances(recipe, selectedAppliances) &&
-                    recipeMatchIngredients(recipe, selectedIngredients) &&
-                    recipeMatchUstensils(recipe, selectedUstensils)) ||
+                recipeMatchAppliances(recipe, selectedAppliances) &&
+                recipeMatchIngredients(recipe, selectedIngredients) &&
+                recipeMatchUstensils(recipe, selectedUstensils) &&
                 recipeMatchGlobalSearch(recipe, globalSearch)
         );
     });
