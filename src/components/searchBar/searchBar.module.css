@@ -27,3 +27,16 @@
     border-radius: 11px;
     padding: 6px;
 }
+
+.searchbarIcone:hover{
+    background-color: #ffd15b;
+}
+
+.searchbarIconeButton{
+    cursor: pointer;
+    display: flex;
+    align-content: flex-start;
+    align-items: center;
+    border: none;
+    background-color: #fff;
+}

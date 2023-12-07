@@ -22,15 +22,15 @@ function buildPage(): void {
     document.body.appendChild(header);
 
     function onGlobalFilterChange(value: string) {
-        if (uiState.debounceTimer) {
-            clearTimeout(uiState.debounceTimer);
-            uiState.debounceTimer = undefined;
-        }
+        // if (uiState.debounceTimer) {
+        //     clearTimeout(uiState.debounceTimer);
+        //     uiState.debounceTimer = undefined;
+        // }
 
-        uiState.debounceTimer = setTimeout(() => {
-            filterGlobalSearch(value);
-            uiState.debounceTimer = undefined;
-        }, 500);
+        //uiState.debounceTimer = setTimeout(() => {
+        filterGlobalSearch(value);
+        //     uiState.debounceTimer = undefined;
+        // }, 500);
     }
 
     function filterGlobalSearch(value: string) {
