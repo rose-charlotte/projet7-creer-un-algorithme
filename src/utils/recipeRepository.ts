@@ -59,13 +59,13 @@ function mapRecipes(): Recipe[] {
     }));
 }
 
-interface GetAllFiltersResult {
+export interface GetAllFiltersResult {
     ingredients: string[];
     appliances: string[];
     ustensils: string[];
 }
 
-function getAllFilters(recipes: Recipe[]): GetAllFiltersResult {
+export function getAllFilters(recipes: Recipe[]): GetAllFiltersResult {
     const ingredientsSet: Set<string> = new Set();
     const appliancesSet: Set<string> = new Set();
     const ustensilsSet: Set<string> = new Set();

@@ -15,6 +15,7 @@ import styles from "./filters.module.css";
 // function that handle the dropDown display
 
 export function Filters(props: FiltersProps): ComponentRender<FiltersProps> {
+    console.log(props.ingredients);
     const filtersContainer = document.createElement("div");
     filtersContainer.className = styles.filtersContainer;
 
@@ -53,7 +54,9 @@ export function Filters(props: FiltersProps): ComponentRender<FiltersProps> {
 
     function updateProps(updatedProps: Partial<FiltersProps>) {
         if (updatedProps.selectedAppliances) {
-            dropDownApplianceFilter.updateProps({ selectedItems: updatedProps.selectedAppliances });
+            dropDownApplianceFilter.updateProps({
+                selectedItems: updatedProps.selectedAppliances,
+            });
         }
 
         if (updatedProps.selectedIngredients) {
@@ -62,6 +65,20 @@ export function Filters(props: FiltersProps): ComponentRender<FiltersProps> {
 
         if (updatedProps.selectedUstensils) {
             dropDownUstensilFilter.updateProps({ selectedItems: updatedProps.selectedUstensils });
+        }
+        if (updatedProps.ingredients) {
+            dropDownIngredientFilter.updateProps({
+                items: updatedProps.ingredients,
+                selectedItems: updatedProps.selectedIngredients,
+            });
+            dropDownApplianceFilter.updateProps({
+                items: updatedProps.appliances,
+                selectedItems: updatedProps.selectedAppliances,
+            });
+            dropDownUstensilFilter.updateProps({
+                items: updatedProps.ustensils,
+                selectedItems: updatedProps.selectedUstensils,
+            });
         }
     }
 
