@@ -5,17 +5,7 @@ import { DropDownSearch } from "../dropDownSearch/DropDownSearch.ts";
 
 import styles from "./filters.module.css";
 
-//Get all  recipes ingredients, put them all in lowercase, put them in a set and tyransform it into  an array:
-
-//const t0 = performance.now();
-
-//const t1 = performance.now();
-//console.log(`call to make it took ${t1 - t0} miliseconds`);
-
-// function that handle the dropDown display
-
 export function Filters(props: FiltersProps): ComponentRender<FiltersProps> {
-    console.log(props.ingredients);
     const filtersContainer = document.createElement("div");
     filtersContainer.className = styles.filtersContainer;
 
@@ -46,11 +36,18 @@ export function Filters(props: FiltersProps): ComponentRender<FiltersProps> {
         onItemRemoved: props.onUstensilRemoved,
     });
 
+    const numberOfRecipes = document.createElement("div");
+    numberOfRecipes.className = styles.numberOfRecipes;
+
+    numberOfRecipes.textContent = `${props.numberOfRecipes} recettes`;
+
     filtersContainer.appendChild(filterContainer);
 
     filterContainer.appendChild(dropDownIngredientFilter.element);
     filterContainer.appendChild(dropDownApplianceFilter.element);
     filterContainer.appendChild(dropDownUstensilFilter.element);
+
+    filtersContainer.appendChild(numberOfRecipes);
 
     function updateProps(updatedProps: Partial<FiltersProps>) {
         if (updatedProps.selectedAppliances) {
@@ -66,6 +63,20 @@ export function Filters(props: FiltersProps): ComponentRender<FiltersProps> {
         if (updatedProps.selectedUstensils) {
             dropDownUstensilFilter.updateProps({ selectedItems: updatedProps.selectedUstensils });
         }
+        if (updatedProps.appliances) {
+            dropDownIngredientFilter.updateProps({
+                items: updatedProps.ingredients,
+                selectedItems: updatedProps.selectedIngredients,
+            });
+            dropDownApplianceFilter.updateProps({
+                items: updatedProps.appliances,
+                selectedItems: updatedProps.selectedAppliances,
+            });
+            dropDownUstensilFilter.updateProps({
+                items: updatedProps.ustensils,
+                selectedItems: updatedProps.selectedUstensils,
+            });
+        }
         if (updatedProps.ingredients) {
             dropDownIngredientFilter.updateProps({
                 items: updatedProps.ingredients,
@@ -79,6 +90,24 @@ export function Filters(props: FiltersProps): ComponentRender<FiltersProps> {
                 items: updatedProps.ustensils,
                 selectedItems: updatedProps.selectedUstensils,
             });
+        }
+        if (updatedProps.ustensils) {
+            dropDownIngredientFilter.updateProps({
+                items: updatedProps.ingredients,
+                selectedItems: updatedProps.selectedIngredients,
+            });
+            dropDownApplianceFilter.updateProps({
+                items: updatedProps.appliances,
+                selectedItems: updatedProps.selectedAppliances,
+            });
+            dropDownUstensilFilter.updateProps({
+                items: updatedProps.ustensils,
+                selectedItems: updatedProps.selectedUstensils,
+            });
+        }
+
+        if (updatedProps.numberOfRecipes) {
+            numberOfRecipes.textContent = `${updatedProps.numberOfRecipes} recettes`;
         }
     }
 
@@ -105,4 +134,6 @@ export interface FiltersProps {
 
     onUstensilAdded: (ustensil: string) => void;
     onUstensilRemoved: (ustensil: string) => void;
+
+    numberOfRecipes: number;
 }
