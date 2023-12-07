@@ -5,6 +5,7 @@
     height: 731px;
     border-radius: 21px;
     background-color: #fff;
+    cursor: pointer;
 }
 
 .imgContainer {

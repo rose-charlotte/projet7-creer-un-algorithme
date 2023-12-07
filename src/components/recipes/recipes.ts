@@ -7,6 +7,7 @@ export function Recipes(recipe: Recipe): HTMLElement {
 
     const recipeContainer = document.createElement("article");
     recipeContainer.className = styles.recipeContainer;
+    recipeContainer.addEventListener("click", () => alert(`Vous avez choisi la recette ${recipe.name}`));
 
     const imgContainer = document.createElement("div");
     imgContainer.className = styles.imgContainer;
