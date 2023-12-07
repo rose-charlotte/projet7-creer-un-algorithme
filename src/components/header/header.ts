@@ -1,7 +1,7 @@
 import { searchBarComponent } from "../searchBar/searchBar";
 import styles from "./header.module.css";
 
-export function Header(): HTMLElement {
+export function Header(props: headerProps): HTMLElement {
     const headerContainer = document.createElement("header");
     headerContainer.className = styles.headerContainer;
 
@@ -28,7 +28,11 @@ export function Header(): HTMLElement {
     descriptiontext.className = styles.descriptionText;
     descriptiontext.textContent = "Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses";
 
-    const searchBarContainer = searchBarComponent();
+    const searchBarContainer = searchBarComponent({ onChange });
+
+    function onChange(value: string) {
+        props.onChange(value);
+    }
 
     headerContainer.appendChild(mainHeader);
     mainHeader.appendChild(headerTitleContainer);
@@ -39,4 +43,8 @@ export function Header(): HTMLElement {
     mainHeader.appendChild(searchBarContainer);
 
     return headerContainer;
+}
+
+export interface headerProps {
+    onChange: (newValue: string) => void;
 }
