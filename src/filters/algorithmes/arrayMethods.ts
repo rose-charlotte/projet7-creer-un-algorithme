@@ -22,9 +22,9 @@ export function filterWithArrayMethods(
         return allRecipes.filter(
             recipe =>
                 recipeMatchAppliances(recipe, selectedAppliances) &&
-                recipeMatchGlobalSearch(recipe, globalSearch) &&
                 recipeMatchIngredients(recipe, selectedIngredients) &&
-                recipeMatchUstensils(recipe, selectedUstensils)
+                recipeMatchUstensils(recipe, selectedUstensils) &&
+                recipeMatchGlobalSearch(recipe, globalSearch)
         );
     });
 }

@@ -24,9 +24,9 @@ export function filterWithNativeLoop(
         for (const recipe of allRecipes) {
             if (
                 recipeMatchAppliances(recipe, selectedAppliances) &&
-                recipeMatchGlobalSearch(recipe, globalSearch) &&
                 recipeMatchIngredients(recipe, selectedIngredients) &&
-                recipeMatchUstensils(recipe, selectedUstensils)
+                recipeMatchUstensils(recipe, selectedUstensils) &&
+                recipeMatchGlobalSearch(recipe, globalSearch)
             ) {
                 filteredRecipes.push(recipe);
             }

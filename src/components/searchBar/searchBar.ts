@@ -1,7 +1,7 @@
 import styles from "./searchBar.module.css";
 
 export function searchBarComponent(props: searchBarComponentProps): HTMLElement {
-    const searchBarContainer = document.createElement("form");
+    const searchBarContainer = document.createElement("div");
     searchBarContainer.className = styles.searchbarContainer;
 
     const searchBarInput = document.createElement("input");

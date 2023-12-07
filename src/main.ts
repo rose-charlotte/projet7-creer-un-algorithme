@@ -10,6 +10,10 @@ function buildPage(): void {
         selectedAppliances: new Set(),
         selectedIngredients: new Set(),
         selectedUstensils: new Set(),
+
+        globalSearchSelectedAppliances: new Set(),
+        globalSearchSelectedIngredients: new Set(),
+        globalSearchSelectedUstensils: new Set(),
     };
 
     const allRecipes: Recipe[] = getAllRecipes();
@@ -30,36 +34,41 @@ function buildPage(): void {
     }
 
     function filterGlobalSearch(value: string) {
-        // 2. find related ustensils, ingredients and applianances and update the selected ones
-
-        const foundIngredients = getAllIngredients().filter(ingredient => ingredient.includes(value));
-        if (foundIngredients.length > 0) {
-            foundIngredients.forEach(ingredient => uiState.selectedIngredients.add(ingredient));
-        }
-
-        const foundUstensils = getAllUstensils().filter(ustensil => ustensil.includes(value));
-        if (foundUstensils.length > 0) {
-            foundUstensils.forEach(ustensil => uiState.selectedUstensils.add(ustensil));
-        }
-
-        const foundAppliance = getAllAppliances().filter(appliance => appliance.includes(value));
-        if (foundAppliance.length > 0) {
-            foundAppliance.forEach(appliance => uiState.selectedAppliances.add(appliance));
-        }
-
+        console.log(value);
         // 1. set uiState.globalSearch
-        if (foundIngredients.length === 0 && foundUstensils.length === 0 && foundAppliance.length === 0) {
-            uiState.globalSearch = value;
+        uiState.globalSearch = value;
+
+        uiState.globalSearchSelectedAppliances.clear();
+        uiState.globalSearchSelectedIngredients.clear();
+        uiState.globalSearchSelectedUstensils.clear();
+
+        if (value) {
+            // 2. find related ustensils, ingredients and applianances and update the selected ones
+            const foundIngredients = getAllIngredients().filter(ingredient => ingredient.includes(value));
+            if (foundIngredients.length > 0) {
+                foundIngredients.forEach(ingredient => uiState.globalSearchSelectedIngredients.add(ingredient));
+            }
+
+            const foundUstensils = getAllUstensils().filter(ustensil => ustensil.includes(value));
+            if (foundUstensils.length > 0) {
+                foundUstensils.forEach(ustensil => uiState.globalSearchSelectedUstensils.add(ustensil));
+            }
+
+            const foundAppliance = getAllAppliances().filter(appliance => appliance.includes(value));
+            if (foundAppliance.length > 0) {
+                foundAppliance.forEach(appliance => uiState.globalSearchSelectedAppliances.add(appliance));
+            }
         }
 
         // 3. call filterElements
         filterElements();
+
         // 4. use filters.updateProps
-        filters.updateProps({
-            selectedIngredients: Array.from(uiState.selectedIngredients),
-            selectedUstensils: Array.from(uiState.selectedUstensils),
-            selectedAppliances: Array.from(uiState.selectedAppliances),
-        });
+        // filters.updateProps({
+        //     selectedIngredients: [...uiState.selectedIngredients, ...uiState.globalSearchSelectedIngredients],
+        //     selectedUstensils: [...uiState.selectedUstensils, ...uiState.globalSearchSelectedUstensils],
+        //     selectedAppliances: [...uiState.selectedAppliances, ...uiState.globalSearchSelectedAppliances],
+        // });
     }
 
     const filters = Filters({
@@ -95,62 +104,71 @@ function buildPage(): void {
 
     function onApplianceAdded(appliance: string) {
         uiState.selectedAppliances.add(appliance);
-        filters.updateProps({
-            selectedAppliances: Array.from(uiState.selectedAppliances),
-        });
+        // filters.updateProps({
+        //     selectedAppliances: [...uiState.selectedAppliances, ...uiState.globalSearchSelectedAppliances],
+        // });
         filterElements();
     }
 
     function onApplianceRemoved(appliance: string) {
         uiState.selectedAppliances.delete(appliance);
-        filters.updateProps({
-            selectedAppliances: Array.from(uiState.selectedAppliances),
-        });
+        uiState.globalSearchSelectedAppliances.delete(appliance);
+        // filters.updateProps({
+        //     selectedAppliances: [...uiState.selectedAppliances, ...uiState.globalSearchSelectedAppliances],
+        // });
         filterElements();
     }
 
     function onIngredientAdded(ingredient: string) {
         uiState.selectedIngredients.add(ingredient);
-        filters.updateProps({
-            selectedIngredients: Array.from(uiState.selectedIngredients),
-        });
+        // filters.updateProps({
+        //     selectedIngredients: [...uiState.selectedIngredients, ...uiState.globalSearchSelectedIngredients],
+        // });
         filterElements();
     }
 
     function onIngredientRemoved(ingredient: string) {
         uiState.selectedIngredients.delete(ingredient);
-        filters.updateProps({
-            selectedIngredients: Array.from(uiState.selectedIngredients),
-        });
+        uiState.globalSearchSelectedIngredients.delete(ingredient);
+        // filters.updateProps({
+        //     selectedIngredients: [...uiState.selectedIngredients, ...uiState.globalSearchSelectedIngredients],
+        // });
         filterElements();
     }
 
     function onUstensilAdded(ustensil: string) {
         uiState.selectedUstensils.add(ustensil);
-        filters.updateProps({
-            selectedUstensils: Array.from(uiState.selectedUstensils),
-        });
+        // filters.updateProps({
+        //     selectedUstensils: [...uiState.selectedUstensils, ...uiState.globalSearchSelectedUstensils],
+        // });
         filterElements();
     }
 
     function onUstensilRemoved(ustensil: string) {
         uiState.selectedUstensils.delete(ustensil);
-        filters.updateProps({
-            selectedUstensils: Array.from(uiState.selectedUstensils),
-        });
+        uiState.globalSearchSelectedUstensils.delete(ustensil);
+        // filters.updateProps({
+        //     selectedUstensils: [...uiState.selectedUstensils, ...uiState.globalSearchSelectedUstensils],
+        // });
         filterElements();
     }
 
     function filterElements() {
         const filteredRecipes: Recipe[] = filterWithArrayMethods(
             allRecipes,
-            uiState.selectedIngredients,
-            uiState.selectedAppliances,
-            uiState.selectedUstensils,
+            new Set([...uiState.selectedIngredients, ...uiState.globalSearchSelectedIngredients]),
+            new Set([...uiState.selectedAppliances, ...uiState.globalSearchSelectedAppliances]),
+            new Set([...uiState.selectedUstensils, ...uiState.globalSearchSelectedUstensils]),
             uiState.globalSearch
         );
         console.log(filteredRecipes);
         renderRecipeList(filteredRecipes);
+
+        filters.updateProps({
+            selectedIngredients: [...uiState.selectedIngredients, ...uiState.globalSearchSelectedIngredients],
+            selectedUstensils: [...uiState.selectedUstensils, ...uiState.globalSearchSelectedUstensils],
+            selectedAppliances: [...uiState.selectedAppliances, ...uiState.globalSearchSelectedAppliances],
+        });
     }
 }
 
@@ -160,7 +178,11 @@ interface UIState {
     selectedIngredients: Set<string>;
     selectedUstensils: Set<string>;
     debounceTimer?: number;
+
     globalSearch?: string;
+    globalSearchSelectedAppliances: Set<string>;
+    globalSearchSelectedIngredients: Set<string>;
+    globalSearchSelectedUstensils: Set<string>;
 }
 
 buildPage();

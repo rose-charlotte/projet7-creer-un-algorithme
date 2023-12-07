@@ -56,28 +56,10 @@ export function recipeMatchGlobalSearch(recipe: Recipe, globalSearch: string | u
         return true;
     }
 
-    //console.log(globalSearch);
+    const lowerCaseGlobalSearch = globalSearch.toLowerCase();
 
-    if (!recipe.name.toLowerCase().includes(globalSearch.toLowerCase())) {
-        return false;
-    }
-
-    // if (!recipe.name.includes(globalSearch)) {
-    //     console.log(recipe.name);
-    //     return false;
-    // }
-    //  return true;
-
-    //console.log(recipe.name);
-    // const recipeIngredients = new Set(recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase()));
-    // const recipeUstensils = new Set(recipe.ustensils.map(ustensil => ustensil.toLowerCase()));
-
-    // if (
-    //     !recipeIngredients.has(globalSearch) &&
-    //     !recipeUstensils.has(globalSearch) &&
-    //     recipe.appliance.toLowerCase() !== globalSearch
-    // ) {
-    //     return false;
-    // }
-    return true;
+    return (
+        recipe.name.toLowerCase().includes(lowerCaseGlobalSearch) ||
+        recipe.description.toLowerCase().includes(lowerCaseGlobalSearch)
+    );
 }
