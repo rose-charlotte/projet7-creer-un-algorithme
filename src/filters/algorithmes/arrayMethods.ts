@@ -18,10 +18,22 @@ export function filterWithArrayMethods(
     }
 
     return allRecipes.filter(
-        recipe =>
-            (recipeMatchAppliances(recipe, selectedAppliances) &&
+        recipe => {
+            if (selectedAppliances.size === 0 && selectedIngredients.size === 0 && selectedUstensils.size === 0) {
+                return recipeMatchGlobalSearch(recipe, globalSearch);
+            }
+
+            return (
+                recipeMatchAppliances(recipe, selectedAppliances) &&
                 recipeMatchIngredients(recipe, selectedIngredients) &&
-                recipeMatchUstensils(recipe, selectedUstensils)) ||
-            recipeMatchGlobalSearch(recipe, globalSearch)
+                recipeMatchUstensils(recipe, selectedUstensils) &&
+                recipeMatchGlobalSearch(recipe, globalSearch)
+            );
+        }
+
+        // (recipeMatchAppliances(recipe, selectedAppliances) &&
+        //     recipeMatchIngredients(recipe, selectedIngredients) &&
+        //     recipeMatchUstensils(recipe, selectedUstensils)) ||
+        // recipeMatchGlobalSearch(recipe, globalSearch)
     );
 }

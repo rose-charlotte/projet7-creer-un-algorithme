@@ -127,10 +127,15 @@ export function DropDownSearch(props: DropDownSearchProps): ComponentRender<Drop
     }
 
     function onItemSelected(item: string) {
-        const element = document.createElement("div");
+        const elementContainer = document.createElement("div");
+        elementContainer.className = styles.selectedItemContainer;
+
+        const element = document.createElement("p");
         element.className = styles.selectedItem;
         element.textContent = item;
-        uiState.selectedFiltersContainer!.appendChild(element);
+
+        uiState.selectedFiltersContainer!.appendChild(elementContainer);
+        elementContainer.appendChild(element);
 
         props.onItemSelected(item);
     }

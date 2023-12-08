@@ -29,12 +29,11 @@ function buildPage(): void {
         console.log(value);
         // 1. set uiState.globalSearch
         uiState.globalSearch = value;
-
         uiState.globalSearchSelectedIngredients.clear();
 
         if (value) {
             // 2. find related ustensils, ingredients and applianances and update the selected ones
-            const foundIngredients = getAllIngredients().filter(ingredient => ingredient.includes(value));
+            const foundIngredients = getAllIngredients().filter(ingredient => ingredient === value);
             if (foundIngredients.length > 0) {
                 foundIngredients.forEach(ingredient => uiState.globalSearchSelectedIngredients.add(ingredient));
             }
@@ -108,6 +107,7 @@ function buildPage(): void {
     }
 
     function filterElements() {
+        console.log(uiState.globalSearch);
         const filteredRecipes: Recipe[] = filterWithArrayMethods(
             allRecipes,
             new Set([...uiState.selectedIngredients, ...uiState.globalSearchSelectedIngredients]),
@@ -116,6 +116,7 @@ function buildPage(): void {
             uiState.globalSearch
         );
 
+        console.log(filteredRecipes);
         renderRecipeList(filteredRecipes);
         const { ingredients, appliances, ustensils } = getAllFilters(filteredRecipes);
 

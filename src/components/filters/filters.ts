@@ -67,7 +67,7 @@ export function Filters(props: FiltersProps): ComponentRender<FiltersProps> {
             });
         }
 
-        if (updatedProps.numberOfRecipes) {
+        if (updatedProps.numberOfRecipes !== undefined) {
             numberOfRecipes.textContent = `${updatedProps.numberOfRecipes} recettes`;
         }
     }

@@ -22,10 +22,10 @@ export function DropDownSearchList(props: DropDownSearchListProps): ComponentRen
 
         const selectedItemsSet = new Set(selectedItems);
 
+        selectedItems.forEach(item => renderSelectedItem(item, filterElementListSelectedItems));
+
         items.forEach(item => {
-            if (selectedItemsSet.has(item)) {
-                renderSelectedItem(item, filterElementListSelectedItems);
-            } else {
+            if (!selectedItemsSet.has(item)) {
                 renderUnselectedItem(item, filterElementListUnselectedItems);
             }
 

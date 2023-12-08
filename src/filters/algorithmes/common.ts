@@ -4,10 +4,11 @@ export function recipeMatchIngredients(recipe: Recipe, selectedIngredients: Set<
     if (selectedIngredients.size === 0) {
         return true;
     }
-
+    console.log(selectedIngredients);
     const recipeIngredients = new Set(recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase()));
 
     for (const ingredient of selectedIngredients) {
+        console.log(ingredient);
         // Si on cherche au moins un ingredient, alors utiliser cela
         // if (recipeIngredients.has(ingredient)) {
         //     return true;
@@ -52,11 +53,29 @@ export function recipeMatchUstensils(recipe: Recipe, selectedUstensils: Set<stri
 }
 
 export function recipeMatchGlobalSearch(recipe: Recipe, globalSearch: string | undefined): boolean {
-    if (!globalSearch) {
-        return false;
-    }
+    console.log(globalSearch);
+    // if (!globalSearch) {
+    //     return true;
+    // }
 
+    // const lowerCaseGlobalSearch = globalSearch.toLowerCase();
+
+    // if (recipe.name.toLowerCase().includes(lowerCaseGlobalSearch)) {
+    //     return true;
+    // }
+    // if (recipe.description.toLowerCase().includes(lowerCaseGlobalSearch)) {
+    //     return true;
+    // }
+    // return false;
+
+    if (!globalSearch) {
+        return true;
+    }
+    console.log(globalSearch);
     const lowerCaseGlobalSearch = globalSearch.toLowerCase();
+
+    const ingredients = recipe.ingredients.flatMap(ingredient => ingredient.ingredient);
+    console.log(ingredients);
 
     return (
         recipe.name.toLowerCase().includes(lowerCaseGlobalSearch) ||

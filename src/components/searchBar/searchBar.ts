@@ -30,7 +30,7 @@ export function searchBarComponent(props: searchBarComponentProps): HTMLElement 
     searchBarInput.addEventListener("input", onInputChange);
 
     function onInputChange() {
-        if (searchBarInput.value.length >= 3) {
+        if (searchBarInput) {
             closeBtn.classList.toggle(styles.hide);
         }
     }
@@ -51,7 +51,9 @@ export function searchBarComponent(props: searchBarComponentProps): HTMLElement 
     }
 
     searchBarContainer.appendChild(searchBarInput);
+
     searchBarContainer.appendChild(closeBtn);
+
     searchBarContainer.appendChild(searchBarIconeButton);
     searchBarIconeButton.appendChild(searchBarIcone);
 
