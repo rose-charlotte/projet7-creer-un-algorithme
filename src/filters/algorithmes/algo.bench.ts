@@ -1,4 +1,4 @@
-import { bench, test } from "vitest";
+import { bench } from "vitest";
 import { filterWithArrayMethods } from "./arrayMethods";
 import { getAllRecipes } from "../../utils/recipeRepository";
 
