@@ -8,14 +8,38 @@ export function searchBarComponent(props: searchBarComponentProps): HTMLElement 
     searchBarInput.className = styles.searchbarInput;
     searchBarInput.setAttribute("placeholder", "Rechercher une recette, un ingrédient...");
 
+    const closeBtn = document.createElement("img");
+    closeBtn.src = "assets/icones/closeBtn.svg";
+    closeBtn.classList.add(styles.closeBtn);
+    closeBtn.classList.add(styles.hide);
+    closeBtn.addEventListener("click", () => {
+        searchBarInput.value = "";
+        closeBtn.classList.toggle(styles.hide);
+        onChange();
+    });
+
     const searchBarIconeButton = document.createElement("button");
     searchBarIconeButton.className = styles.searchbarIconeButton;
     const searchBarIcone = document.createElement("img");
     searchBarIcone.className = styles.searchbarIcone;
     searchBarIcone.setAttribute("src", "assets/icones/Group 4.svg");
 
-    //searchBarInput.addEventListener("input", onChange);
     searchBarIconeButton.addEventListener("click", onHandleChange);
+    searchBarInput.addEventListener("keydown", onKeyPressed);
+
+    searchBarInput.addEventListener("input", onInputChange);
+
+    function onInputChange() {
+        if (searchBarInput.value.length >= 3) {
+            closeBtn.classList.toggle(styles.hide);
+        }
+    }
+
+    function onKeyPressed(e: KeyboardEvent) {
+        if (e.code === "Enter") {
+            onHandleChange();
+        }
+    }
 
     function onHandleChange() {
         if (searchBarInput.value.length >= 3) {
@@ -27,6 +51,7 @@ export function searchBarComponent(props: searchBarComponentProps): HTMLElement 
     }
 
     searchBarContainer.appendChild(searchBarInput);
+    searchBarContainer.appendChild(closeBtn);
     searchBarContainer.appendChild(searchBarIconeButton);
     searchBarIconeButton.appendChild(searchBarIcone);
 

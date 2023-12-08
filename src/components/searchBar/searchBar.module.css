@@ -8,6 +8,7 @@
     left: 24%;
     padding: 10px;
     border-radius: 11px;
+    gap: 24px;
 }
 
 .searchbarInput {
@@ -39,4 +40,13 @@
     align-items: center;
     border: none;
     background-color: #fff;
+}
+
+.closeBtn{
+    display: block;
+    cursor: pointer;
+}
+
+.hide{
+    display: none
 }
