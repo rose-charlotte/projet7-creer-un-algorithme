@@ -10,8 +10,16 @@ export function searchBarComponent(props: searchBarComponentProps): HTMLElement 
 
     const closeBtn = document.createElement("img");
     closeBtn.src = "assets/icones/closeBtn.svg";
-    closeBtn.classList.add(styles.closeBtn);
+    closeBtn.className = styles.closeBtn;
     closeBtn.classList.add(styles.hide);
+
+    searchBarInput.addEventListener("input", onInputChange);
+
+    function onInputChange() {
+        if (searchBarInput.value.length === 1) {
+            closeBtn.classList.toggle(styles.hide);
+        }
+    }
     closeBtn.addEventListener("click", () => {
         searchBarInput.value = "";
         closeBtn.classList.toggle(styles.hide);
@@ -26,14 +34,6 @@ export function searchBarComponent(props: searchBarComponentProps): HTMLElement 
 
     searchBarIconeButton.addEventListener("click", onHandleChange);
     searchBarInput.addEventListener("keydown", onKeyPressed);
-
-    searchBarInput.addEventListener("input", onInputChange);
-
-    function onInputChange() {
-        if (searchBarInput) {
-            closeBtn.classList.toggle(styles.hide);
-        }
-    }
 
     function onKeyPressed(e: KeyboardEvent) {
         if (e.code === "Enter") {
