@@ -44,11 +44,15 @@ export function searchBarComponent(props: searchBarComponentProps): HTMLElement 
     }
 
     function onHandleChange() {
+        if (searchBarInput.value.length === 0) {
+            onChange();
+        }
+
         if (searchBarInput.value.length >= 3) {
             onChange();
-            searchBarInput.value = "";
-        } else alert("pas assez de charactère");
+        }
     }
+
     function onChange() {
         props.onChange(searchBarInput.value);
     }
