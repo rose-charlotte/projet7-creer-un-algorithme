@@ -58,8 +58,11 @@ export function DropDownSearchList(props: DropDownSearchListProps): ComponentRen
     function renderSelectedItem(item: string, listElement: HTMLElement) {
         const filterElement = document.createElement("li");
         filterElement.className = styles.filterElement;
-        filterElement.textContent = item;
-        filterElement.dataset.item = item;
+
+        const elementName = document.createElement("p");
+        elementName.className = styles.elementName;
+        elementName.textContent = item;
+        elementName.dataset.item = item;
 
         const closeBtn = document.createElement("img");
         closeBtn.src = "assets/icones/closeBtn.svg";
@@ -67,6 +70,7 @@ export function DropDownSearchList(props: DropDownSearchListProps): ComponentRen
         closeBtn.dataset.item = item;
         closeBtn.addEventListener("click", removeElement);
 
+        filterElement.appendChild(elementName);
         filterElement.appendChild(closeBtn);
 
         listElement.appendChild(filterElement);

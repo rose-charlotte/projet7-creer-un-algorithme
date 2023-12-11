@@ -23,6 +23,7 @@
     font-size: 14px;
     background-color:#FFD15B ;
     padding: 17px 18px;
+    width: 60%
   
 }
 
@@ -118,6 +119,14 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 80%;
+}
+
+.elementName{
+    width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
 }
 
 .arrow-down-hidden {
@@ -191,6 +200,7 @@
 .closeBtn {
     display: block;
     cursor: pointer;
+    width: 10px;
 }
 
 .hide {

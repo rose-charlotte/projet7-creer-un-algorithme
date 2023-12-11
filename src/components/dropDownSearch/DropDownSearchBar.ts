@@ -14,35 +14,29 @@ export function DropDownSearchBar(props: DropDownSearchBarProps): HTMLElement {
 
     const searchIcon = document.createElement("img");
     searchIcon.className = styles.searchIcon;
-    // searchIcon.addEventListener("click", onHandleChange);
 
-    // const closeBtn = document.createElement("img");
-    // closeBtn.src = "assets/icones/closeBtn.svg";
-    // closeBtn.classList.add(styles.closeBtn);
-    // closeBtn.classList.add(styles.hide);
-    // closeBtn.addEventListener("click", () => {
-    //     dropDownInput.value = "";
-    //     closeBtn.classList.toggle(styles.hide);
-    //     onChange();
-    // });
+    const closeBtn = document.createElement("img");
+    closeBtn.src = "assets/icones/closeBtn.svg";
+    closeBtn.alt = "close button";
+    closeBtn.className = styles.closeBtn;
+    closeBtn.classList.add(styles.hide);
 
-    // function onInputChange() {
-    //     if (dropDownInput.value.length >= 3) {
-    //         closeBtn.classList.toggle(styles.hide);
-    //     }
-    // }
-    // function onHandleChange() {
-    //     if (dropDownInput.value.length >= 3) {
-    //         onChange();
-    //     } else alert("pas assez de charactère");
-    // }
+    closeBtn.addEventListener("click", () => {
+        dropDownInput.value = "";
+        closeBtn.classList.toggle(styles.hide);
+        onChange();
+    });
+
     searchIcon.src = "assets/icones/loupe.svg";
 
     dropDownSearchBar.appendChild(dropDownInput);
-    // dropDownSearchBar.appendChild(closeBtn);
+    dropDownSearchBar.appendChild(closeBtn);
     dropDownSearchBar.appendChild(searchIcon);
 
     function onChange() {
+        if (dropDownInput.value.length === 1) {
+            closeBtn.classList.toggle(styles.hide);
+        }
         props.onChange(dropDownInput.value);
     }
 
