@@ -10,6 +10,7 @@ export function searchBarComponent(props: searchBarComponentProps): HTMLElement 
 
     const closeBtn = document.createElement("img");
     closeBtn.src = "assets/icones/closeBtn.svg";
+    closeBtn.alt = "close button";
     closeBtn.className = styles.closeBtn;
     closeBtn.classList.add(styles.hide);
 
@@ -30,7 +31,8 @@ export function searchBarComponent(props: searchBarComponentProps): HTMLElement 
     searchBarIconeButton.className = styles.searchbarIconeButton;
     const searchBarIcone = document.createElement("img");
     searchBarIcone.className = styles.searchbarIcone;
-    searchBarIcone.setAttribute("src", "assets/icones/Group 4.svg");
+    searchBarIcone.setAttribute("src", "assets/icones/Group%204.svg");
+    searchBarIcone.alt = "Chercher";
 
     searchBarIconeButton.addEventListener("click", onHandleChange);
     searchBarInput.addEventListener("keydown", onKeyPressed);

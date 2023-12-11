@@ -28,6 +28,7 @@ export function DropDownSearchBar(props: DropDownSearchBarProps): HTMLElement {
     });
 
     searchIcon.src = "assets/icones/loupe.svg";
+    searchIcon.alt = "Chercher";
 
     dropDownSearchBar.appendChild(dropDownInput);
     dropDownSearchBar.appendChild(closeBtn);

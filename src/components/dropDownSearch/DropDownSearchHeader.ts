@@ -11,7 +11,7 @@ export function DropDownSearchHeader(props: DropDownSearchHeaderProps): HTMLElem
 
     const arrowDown = document.createElement("img");
     arrowDown.classList.add(styles.arrowDown);
-
+    arrowDown.alt = "Ouvrir";
     arrowDown.src = "assets/icones/arrowDown.svg";
 
     dropDownFilterContainer.appendChild(arrowDown);
@@ -23,8 +23,10 @@ export function DropDownSearchHeader(props: DropDownSearchHeaderProps): HTMLElem
 
         if (isOpened) {
             arrowDown.src = "assets/icones/arrowUp.svg";
+            arrowDown.alt = "Fermer";
         } else {
             arrowDown.src = "assets/icones/arrowDown.svg";
+            arrowDown.alt = "Ouvrir";
         }
 
         props.onToggleOpenClose(false);
