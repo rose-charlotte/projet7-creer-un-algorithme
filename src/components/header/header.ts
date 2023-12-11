@@ -9,6 +9,7 @@ export function Header(props: headerProps): HTMLElement {
     mainHeader.className = styles.mainHeader;
 
     const headerTitleContainer = document.createElement("div");
+    headerTitleContainer.className = styles.headerTitleContainer;
 
     const mainTitle = document.createElement("img");
     mainTitle.setAttribute("src", "assets/icones/Les%20petits%20plats.svg");
