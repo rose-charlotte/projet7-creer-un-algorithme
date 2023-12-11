@@ -11,10 +11,19 @@
 
 .selectedItemContainer {
     width: 195px;
-    background-color: yellow;
+    display: flex;
+    background-color: #ffd15b;
+    justify-content: space-around;
+    align-items: baseline;
+    margin-top: 10px;
+    border-radius: 10px;
 }
 .selectedItem{
     font-family: "Manrope";
+    font-size: 14px;
+    background-color:#FFD15B ;
+    padding: 17px 18px;
+  
 }
 
 .dropDownContainer {

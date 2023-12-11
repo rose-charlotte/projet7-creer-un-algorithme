@@ -134,8 +134,18 @@ export function DropDownSearch(props: DropDownSearchProps): ComponentRender<Drop
         element.className = styles.selectedItem;
         element.textContent = item;
 
+        const closeBtn = document.createElement("img");
+        closeBtn.src = "assets/icones/closeBtn.svg";
+        closeBtn.alt = "close button";
+        closeBtn.className = styles.closeBtn;
+        closeBtn.addEventListener("click", () => {
+            elementContainer.classList.add(styles.hide);
+            props.onItemRemoved(item);
+        });
+
         uiState.selectedFiltersContainer!.appendChild(elementContainer);
         elementContainer.appendChild(element);
+        elementContainer.appendChild(closeBtn);
 
         props.onItemSelected(item);
     }
