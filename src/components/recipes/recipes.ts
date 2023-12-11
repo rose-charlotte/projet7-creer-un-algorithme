@@ -14,6 +14,7 @@ export function Recipes(recipe: Recipe): HTMLElement {
     const img = document.createElement("img");
     img.className = styles.recipeImg;
     img.src = `assets/images/photo/${recipe.image}`;
+    img.alt = recipe.name;
 
     const timer = document.createElement("div");
     timer.className = styles.timer;
@@ -36,7 +37,7 @@ export function Recipes(recipe: Recipe): HTMLElement {
     ingredientsTitle.textContent = "ingrédient";
 
     const ingredientsList = recipe.ingredients;
-    const ingredientListContainer = document.createElement("div");
+    const ingredientListContainer = document.createElement("ul");
     ingredientListContainer.className = styles.ingredientListContainer;
     ingredientsList.forEach(ingredient => {
         const ingredientList = buildIngredientsList(ingredient);
@@ -58,8 +59,8 @@ export function Recipes(recipe: Recipe): HTMLElement {
 }
 
 function buildIngredientsList(ingredient: Ingredient): HTMLElement {
-    const container = document.createElement("div");
-    const li = document.createElement("li");
+    const container = document.createElement("li");
+    const li = document.createElement("p");
     li.className = styles.ingredientList;
     li.textContent = ingredient.ingredient;
 

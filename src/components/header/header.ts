@@ -9,20 +9,17 @@ export function Header(props: headerProps): HTMLElement {
     mainHeader.className = styles.mainHeader;
 
     const headerTitleContainer = document.createElement("div");
-    headerTitleContainer.ariaLabel = "Enseigne les petits plats";
-    headerTitleContainer.className = styles.headerTitleContainer;
 
     const mainTitle = document.createElement("img");
-    mainTitle.setAttribute("src", "assets/icones/Les petits plats.svg");
-    mainTitle.ariaLabel = "Les petits plats";
+    mainTitle.setAttribute("src", "assets/icones/Les%20petits%20plats.svg");
+    mainTitle.alt = "Les petits plats";
 
     const logo = document.createElement("img");
-    logo.setAttribute("src", "assets/icones/Group 3.svg");
-    logo.ariaLabel = "logo de les petits plats";
+    logo.setAttribute("src", "assets/icones/Group%203.svg");
+    logo.alt = "logo de les petits plats";
 
     const descriptionTextContainer = document.createElement("div");
     descriptionTextContainer.className = styles.descriptionTextContainer;
-    descriptionTextContainer.ariaLabel = "container de la description";
 
     const descriptiontext = document.createElement("p");
     descriptiontext.className = styles.descriptionText;
