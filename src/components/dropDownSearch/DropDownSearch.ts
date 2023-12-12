@@ -2,7 +2,7 @@
 
 import { ComponentRender } from "../../ComponentRender";
 import { DropDownSearchBar } from "./DropDownSearchBar";
-import { DropDownSearchHeader } from "./DropDownSearchHeader";
+import { DropDownSearchHeader, DropDownSearchHeaderProps } from "./DropDownSearchHeader";
 import { DropDownSearchList, DropDownSearchListProps } from "./DropDownSearchList";
 
 import styles from "./DropDownSearch.module.css";
@@ -43,6 +43,7 @@ export function DropDownSearch(props: DropDownSearchProps): ComponentRender<Drop
     const uiState: UIState = {
         container: document.createElement("div"),
         dropDownContainer: document.createElement("div"),
+        isOpened: false,
     };
 
     return {
@@ -59,9 +60,10 @@ export function DropDownSearch(props: DropDownSearchProps): ComponentRender<Drop
         uiState.header = DropDownSearchHeader({
             onToggleOpenClose,
             title: props.title,
+            isOpened: uiState.isOpened,
         });
 
-        uiState.container.appendChild(uiState.header);
+        uiState.container.appendChild(uiState.header.element);
     }
 
     function renderDropDownSearchBar(): void {
@@ -88,9 +90,17 @@ export function DropDownSearch(props: DropDownSearchProps): ComponentRender<Drop
         }
     }
 
-    function onToggleOpenClose(open: boolean) {
-        if (!open) {
-            uiState.dropDownContainer.classList.toggle(styles.hidden);
+    function onToggleOpenClose() {
+        uiState.isOpened = !uiState.isOpened;
+        setVisibility();
+    }
+
+    function setVisibility() {
+        uiState.header!.updateProps({ isOpened: uiState.isOpened });
+        if (!uiState.isOpened) {
+            uiState.dropDownContainer.classList.add(styles.hidden);
+        } else {
+            uiState.dropDownContainer.classList.remove(styles.hidden);
         }
     }
 
@@ -114,6 +124,13 @@ export function DropDownSearch(props: DropDownSearchProps): ComponentRender<Drop
         uiState.dropDownContainer.className = styles.dropDownContainer;
         uiState.dropDownContainer.classList.add(styles.hidden);
 
+        document.addEventListener("mouseup", function (e: MouseEvent) {
+            if (!uiState.container.contains(e.target as Node)) {
+                uiState.isOpened = false;
+                setVisibility();
+            }
+        });
+
         renderHeader();
 
         renderDropDownSearchBar();
@@ -135,14 +152,16 @@ export function DropDownSearch(props: DropDownSearchProps): ComponentRender<Drop
         const element = document.createElement("p");
         element.className = styles.selectedItem;
         element.textContent = item;
+        element.dataset.item = item;
 
         const closeBtn = document.createElement("img");
         closeBtn.src = "assets/icones/closeBtn.svg";
         closeBtn.alt = "close button";
         closeBtn.className = styles.closeBtn;
+        closeBtn.dataset.item = item;
         closeBtn.addEventListener("click", () => {
             elementContainer.classList.add(styles.hide);
-            props.onItemRemoved(item);
+            onItemRemoved(item);
         });
 
         uiState.selectedFiltersContainer!.appendChild(elementContainer);
@@ -153,6 +172,11 @@ export function DropDownSearch(props: DropDownSearchProps): ComponentRender<Drop
     }
 
     function onItemRemoved(item: string) {
+        // const element = document.querySelector(".selectedItemContainer");
+        // element?.parentNode?.removeChild(element);
+
+        // console.log(item);
+
         props.onItemRemoved(item);
     }
 }
@@ -169,9 +193,10 @@ export interface DropDownSearchProps {
 interface UIState {
     container: HTMLDivElement;
     dropDownContainer: HTMLDivElement;
-    header?: HTMLElement;
+    header?: ComponentRender<DropDownSearchHeaderProps>;
     dropDownSearchBar?: HTMLElement;
     dropDownSearchList?: ComponentRender<DropDownSearchListProps>;
     debounceTimer?: number;
     selectedFiltersContainer?: HTMLElement;
+    isOpened: boolean;
 }
