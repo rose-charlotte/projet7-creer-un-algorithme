@@ -13,11 +13,8 @@ import {
 
 function buildPage(): void {
     const uiState: UIState = {
-        selectedAppliances: new Set(),
         selectedIngredients: new Set(),
         selectedUstensils: new Set(),
-
-        globalSearchSelectedIngredients: new Set(),
     };
 
     const allRecipes: Recipe[] = getAllRecipes();
@@ -26,20 +23,8 @@ function buildPage(): void {
     document.body.appendChild(header);
 
     function onGlobalFilterChange(value: string) {
-        console.log(value);
-        // 1. set uiState.globalSearch
         uiState.globalSearch = value;
-        uiState.globalSearchSelectedIngredients.clear();
 
-        if (value) {
-            // 2. find related ustensils, ingredients and applianances and update the selected ones
-            const foundIngredients = getAllIngredients().filter(ingredient => ingredient === value);
-            if (foundIngredients.length > 0) {
-                foundIngredients.forEach(ingredient => uiState.globalSearchSelectedIngredients.add(ingredient));
-            }
-        }
-
-        // 3. call filterElements
         filterElements();
     }
 
@@ -76,12 +61,12 @@ function buildPage(): void {
     }
 
     function onApplianceAdded(appliance: string) {
-        uiState.selectedAppliances.add(appliance);
+        uiState.selectedAppliance = appliance;
         filterElements();
     }
 
-    function onApplianceRemoved(appliance: string) {
-        uiState.selectedAppliances.delete(appliance);
+    function onApplianceRemoved() {
+        uiState.selectedAppliance = undefined;
         filterElements();
     }
 
@@ -92,7 +77,6 @@ function buildPage(): void {
 
     function onIngredientRemoved(ingredient: string) {
         uiState.selectedIngredients.delete(ingredient);
-        uiState.globalSearchSelectedIngredients.delete(ingredient);
         filterElements();
     }
 
@@ -110,8 +94,8 @@ function buildPage(): void {
         console.log(uiState.globalSearch);
         const filteredRecipes: Recipe[] = filterWithArrayMethods(
             allRecipes,
-            new Set([...uiState.selectedIngredients, ...uiState.globalSearchSelectedIngredients]),
-            uiState.selectedAppliances,
+            uiState.selectedIngredients,
+            uiState.selectedAppliance,
             uiState.selectedUstensils,
             uiState.globalSearch
         );
@@ -124,8 +108,8 @@ function buildPage(): void {
             ingredients,
             appliances,
             ustensils,
-            selectedIngredients: [...uiState.selectedIngredients, ...uiState.globalSearchSelectedIngredients],
-            selectedAppliances: [...uiState.selectedAppliances],
+            selectedIngredients: [...uiState.selectedIngredients],
+            selectedAppliances: uiState.selectedAppliance ? [uiState.selectedAppliance] : [],
             selectedUstensils: [...uiState.selectedUstensils],
             numberOfRecipes: filteredRecipes.length,
         });
@@ -134,13 +118,12 @@ function buildPage(): void {
 
 interface UIState {
     recipeList?: HTMLElement;
-    selectedAppliances: Set<string>;
+    selectedAppliance?: string;
     selectedIngredients: Set<string>;
     selectedUstensils: Set<string>;
     debounceTimer?: number;
 
     globalSearch?: string;
-    globalSearchSelectedIngredients: Set<string>;
 }
 
 buildPage();

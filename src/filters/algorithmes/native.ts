@@ -9,13 +9,13 @@ import {
 export function filterWithNativeLoop(
     allRecipes: Recipe[],
     selectedIngredients: Set<string>,
-    selectedAppliances: Set<string>,
+    selectedAppliance: string | undefined,
     selectedUstensils: Set<string>,
     globalSearch: string | undefined
 ): Recipe[] {
     if (
         selectedIngredients.size === 0 &&
-        selectedAppliances.size === 0 &&
+        !selectedAppliance &&
         selectedUstensils.size === 0 &&
         globalSearch === undefined
     ) {
@@ -25,10 +25,14 @@ export function filterWithNativeLoop(
     const filteredRecipes: Recipe[] = [];
 
     for (const recipe of allRecipes) {
-        if (
-            (recipeMatchAppliances(recipe, selectedAppliances) &&
-                recipeMatchIngredients(recipe, selectedIngredients) &&
-                recipeMatchUstensils(recipe, selectedUstensils)) ||
+        if (!selectedAppliance && selectedIngredients.size === 0 && selectedUstensils.size === 0) {
+            if (recipeMatchGlobalSearch(recipe, globalSearch)) {
+                filteredRecipes.push(recipe);
+            }
+        } else if (
+            recipeMatchAppliances(recipe, selectedAppliance) &&
+            recipeMatchIngredients(recipe, selectedIngredients) &&
+            recipeMatchUstensils(recipe, selectedUstensils) &&
             recipeMatchGlobalSearch(recipe, globalSearch)
         ) {
             filteredRecipes.push(recipe);
