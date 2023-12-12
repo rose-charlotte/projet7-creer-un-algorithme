@@ -71,9 +71,9 @@ export function getAllFilters(recipes: Recipe[]): GetAllFiltersResult {
     const ustensilsSet: Set<string> = new Set();
 
     for (const recipe of recipes) {
-        recipe.ingredients.forEach(ingredient => ingredientsSet.add(ingredient.ingredient.toLowerCase()));
-        appliancesSet.add(recipe.appliance.toLowerCase());
-        recipe.ustensils.forEach(ustensil => ustensilsSet.add(ustensil.toLowerCase()));
+        recipe.ingredients.forEach(ingredient => ingredientsSet.add(ingredient.ingredient));
+        appliancesSet.add(recipe.appliance);
+        recipe.ustensils.forEach(ustensil => ustensilsSet.add(ustensil));
     }
 
     return {

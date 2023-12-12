@@ -6,6 +6,7 @@ import { DropDownSearchHeader } from "./DropDownSearchHeader";
 import { DropDownSearchList, DropDownSearchListProps } from "./DropDownSearchList";
 
 import styles from "./DropDownSearch.module.css";
+import { removeAccents } from "../../filters/algorithmes/common";
 
 export function DropDownSearch(props: DropDownSearchProps): ComponentRender<DropDownSearchProps> {
     class InitialState {
@@ -100,7 +101,8 @@ export function DropDownSearch(props: DropDownSearchProps): ComponentRender<Drop
         }
 
         uiState.debounceTimer = setTimeout(() => {
-            const foundIngredients = props.items.filter(item => item.includes(value));
+            const searchRegex = new RegExp(removeAccents(value), "i");
+            const foundIngredients = props.items.filter(item => searchRegex.test(removeAccents(item)));
             state.items = foundIngredients;
             uiState.debounceTimer = undefined;
         }, 500);

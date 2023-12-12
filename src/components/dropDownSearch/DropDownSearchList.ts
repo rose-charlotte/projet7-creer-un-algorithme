@@ -22,34 +22,14 @@ export function DropDownSearchList(props: DropDownSearchListProps): ComponentRen
 
         const selectedItemsSet = new Set(selectedItems);
 
-        selectedItems.forEach(item => renderSelectedItem(item, filterElementListSelectedItems));
+        selectedItems
+            .sort(alphabeticSortCaseAndAccentInsensitive)
+            .forEach(item => renderSelectedItem(item, filterElementListSelectedItems));
 
-        items.forEach(item => {
+        items.sort(alphabeticSortCaseAndAccentInsensitive).forEach(item => {
             if (!selectedItemsSet.has(item)) {
                 renderUnselectedItem(item, filterElementListUnselectedItems);
             }
-
-            // const filterElement = document.createElement("li");
-            // filterElement.className = styles.filterElement;
-
-            // filterElement.textContent = item;
-            // filterElement.dataset.item = item;
-            // filterElement.addEventListener("click", selectedElement);
-
-            // function selectedElement() {
-            //     const closeBtn = document.createElement("img");
-            //     closeBtn.src = "assets/icones/closeBtn.svg";
-            //     closeBtn.alt = "close Button";
-            //     closeBtn.addEventListener("click", () => console.log("je t'enlève"));
-            //     filterElement.removeEventListener("click", selectedElement);
-
-            //     filterElementListSelectedItems.appendChild(filterElement);
-            //     filterElement.appendChild(closeBtn);
-
-            //     props.onItemSelected(item);
-            // }
-
-            // filterElementListUnselectedItems.appendChild(filterElement);
         });
 
         dropDownSearchListContainer.replaceChildren(filterElementListSelectedItems, filterElementListUnselectedItems);
@@ -101,6 +81,10 @@ export function DropDownSearchList(props: DropDownSearchListProps): ComponentRen
 
         props.onItemRemoved(item);
     }
+}
+
+function alphabeticSortCaseAndAccentInsensitive(val1: string, val2: string): number {
+    return val1.localeCompare(val2, "fr", { sensitivity: "base" });
 }
 
 export interface DropDownSearchListProps {
