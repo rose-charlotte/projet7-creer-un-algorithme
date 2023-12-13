@@ -7,8 +7,8 @@ export function RecipeList(props: RecipeListProps): HTMLElement {
     recipeListContainer.className = styles.recipeListContainer;
 
     if (props.recipes.length === 0) {
-        console.log("nada");
         const message = document.createElement("div");
+        message.className = styles.message;
         message.textContent = `Aucune recette ne contient "${props.globalSearch}" vous pouvez chercher «
 tarte aux pommes », « poisson », etc.`;
         recipeListContainer.appendChild(message);
