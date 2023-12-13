@@ -7,6 +7,7 @@ import { DropDownSearchList, DropDownSearchListProps } from "./DropDownSearchLis
 
 import styles from "./DropDownSearch.module.css";
 import { removeAccents } from "../../filters/algorithmes/common";
+import { DropDownTags } from "./DropDownTags";
 
 export function DropDownSearch(props: DropDownSearchProps): ComponentRender<DropDownSearchProps> {
     class InitialState {
@@ -35,6 +36,7 @@ export function DropDownSearch(props: DropDownSearchProps): ComponentRender<Drop
 
             renderDropDownSearchBar();
             renderDropDownSearchList();
+            renderDropDownTags();
         }
     }
 
@@ -88,6 +90,18 @@ export function DropDownSearch(props: DropDownSearchProps): ComponentRender<Drop
             });
             uiState.dropDownContainer.appendChild(uiState.dropDownSearchList.element);
         }
+    }
+
+    function renderDropDownTags(): void {
+        const dropDownTags = DropDownTags({ items: state.selectedItems, onItemRemoved });
+
+        if (uiState.dropDownTags) {
+            uiState.dropDownTags.replaceWith(dropDownTags);
+        } else {
+            uiState.container.appendChild(dropDownTags);
+        }
+
+        uiState.dropDownTags = dropDownTags;
     }
 
     function onToggleOpenClose() {
@@ -146,37 +160,10 @@ export function DropDownSearch(props: DropDownSearchProps): ComponentRender<Drop
     }
 
     function onItemSelected(item: string) {
-        const elementContainer = document.createElement("div");
-        elementContainer.className = styles.selectedItemContainer;
-
-        const element = document.createElement("p");
-        element.className = styles.selectedItem;
-        element.textContent = item;
-        element.dataset.item = item;
-
-        const closeBtn = document.createElement("img");
-        closeBtn.src = "assets/icones/closeBtn.svg";
-        closeBtn.alt = "close button";
-        closeBtn.className = styles.closeBtn;
-        closeBtn.dataset.item = item;
-        closeBtn.addEventListener("click", () => {
-            elementContainer.classList.add(styles.hide);
-            onItemRemoved(item);
-        });
-
-        uiState.selectedFiltersContainer!.appendChild(elementContainer);
-        elementContainer.appendChild(element);
-        elementContainer.appendChild(closeBtn);
-
         props.onItemSelected(item);
     }
 
     function onItemRemoved(item: string) {
-        // const element = document.querySelector(".selectedItemContainer");
-        // element?.parentNode?.removeChild(element);
-
-        // console.log(item);
-
         props.onItemRemoved(item);
     }
 }
@@ -199,4 +186,5 @@ interface UIState {
     debounceTimer?: number;
     selectedFiltersContainer?: HTMLElement;
     isOpened: boolean;
+    dropDownTags?: HTMLElement;
 }
