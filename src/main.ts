@@ -91,7 +91,6 @@ function buildPage(): void {
     }
 
     function filterElements() {
-        console.log(uiState.globalSearch);
         const filteredRecipes: Recipe[] = filterWithArrayMethods(
             allRecipes,
             uiState.selectedIngredients,
@@ -100,7 +99,6 @@ function buildPage(): void {
             uiState.globalSearch
         );
 
-        console.log(filteredRecipes);
         renderRecipeList(filteredRecipes);
         const { ingredients, appliances, ustensils } = getAllFilters(filteredRecipes);
 
