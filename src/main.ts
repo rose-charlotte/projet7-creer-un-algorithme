@@ -49,7 +49,7 @@ function buildPage(): void {
     renderRecipeList(allRecipes);
 
     function renderRecipeList(recipes: Recipe[]) {
-        const recipeList = RecipeList({ recipes });
+        const recipeList = RecipeList({ recipes, globalSearch: uiState.globalSearch });
 
         if (uiState.recipeList) {
             uiState.recipeList.replaceWith(recipeList);
