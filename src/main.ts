@@ -1,7 +1,8 @@
 import { Filters } from "./components/filters/filters";
 import { Header } from "./components/header/header";
 import { RecipeList } from "./components/recipes/recipeList";
-import { filterWithArrayMethods } from "./filters/algorithmes/arrayMethods";
+import { filterWithNativeLoop } from "./filters/algorithmes/native";
+
 import { Recipe } from "./types/Recipe";
 import {
     getAllRecipes,
@@ -91,7 +92,7 @@ function buildPage(): void {
     }
 
     function filterElements() {
-        const filteredRecipes: Recipe[] = filterWithArrayMethods(
+        const filteredRecipes: Recipe[] = filterWithNativeLoop(
             allRecipes,
             uiState.selectedIngredients,
             uiState.selectedAppliance,
