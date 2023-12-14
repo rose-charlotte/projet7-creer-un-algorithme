@@ -38,7 +38,7 @@ export function searchBarComponent(props: searchBarComponentProps): HTMLElement 
     searchBarInput.addEventListener("keydown", onKeyPressed);
 
     function onKeyPressed(e: KeyboardEvent) {
-        if (e.code === "Enter") {
+        if (e.code === "Enter" || e.code === "NumpadEnter") {
             onHandleChange();
         }
     }
