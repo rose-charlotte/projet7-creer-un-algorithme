@@ -10,7 +10,7 @@ const ingredients = new Set(["beurre"]);
 bench(
     "array methods",
     () => {
-        filterWithArrayMethods(recipes, ingredients, new Set(), new Set(), undefined);
+        filterWithArrayMethods(recipes, ingredients, undefined, new Set(), undefined);
     },
     { time: 5_000 }
 );
@@ -18,7 +18,7 @@ bench(
 bench(
     "native loops",
     () => {
-        filterWithNativeLoop(recipes, ingredients, new Set(), new Set(), undefined);
+        filterWithNativeLoop(recipes, ingredients, undefined, new Set(), undefined);
     },
     { time: 5_000 }
 );
