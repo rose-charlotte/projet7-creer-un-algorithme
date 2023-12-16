@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type Recipe } from "../types/Recipe";
 import { type Ingredient } from "../types/Ingredient";
 import { recipes as jsRecipes } from "../../assets/data/recipes";
