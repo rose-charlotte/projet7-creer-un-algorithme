@@ -17,13 +17,18 @@ export function searchBarComponent(props: searchBarComponentProps): HTMLElement 
     searchBarInput.addEventListener("input", onInputChange);
 
     function onInputChange() {
-        if (searchBarInput.value.length === 1) {
-            closeBtn.classList.toggle(styles.hide);
+        if (searchBarInput.value.length === 0) {
+            closeBtn.classList.add(styles.hide);
+        } else {
+            closeBtn.classList.remove(styles.hide);
         }
+
+        props.onChange(searchBarInput.value);
     }
+
     closeBtn.addEventListener("click", () => {
         searchBarInput.value = "";
-        closeBtn.classList.toggle(styles.hide);
+        closeBtn.classList.add(styles.hide);
         onChange();
     });
 
@@ -34,24 +39,24 @@ export function searchBarComponent(props: searchBarComponentProps): HTMLElement 
     searchBarIcone.setAttribute("src", "assets/icones/Group%204.svg");
     searchBarIcone.alt = "Chercher";
 
-    searchBarIconeButton.addEventListener("click", onHandleChange);
-    searchBarInput.addEventListener("keydown", onKeyPressed);
+    // searchBarIconeButton.addEventListener("click", onHandleChange);
+    // searchBarInput.addEventListener("keydown", onKeyPressed);
 
-    function onKeyPressed(e: KeyboardEvent) {
-        if (e.code === "Enter" || e.code === "NumpadEnter") {
-            onHandleChange();
-        }
-    }
+    // function onKeyPressed(e: KeyboardEvent) {
+    //     if (e.code === "Enter" || e.code === "NumpadEnter") {
+    //         onHandleChange();
+    //     }
+    // }
 
-    function onHandleChange() {
-        if (searchBarInput.value.length === 0) {
-            onChange();
-        }
+    // function onHandleChange() {
+    //     if (searchBarInput.value.length === 0) {
+    //         onChange();
+    //     }
 
-        if (searchBarInput.value.length >= 3) {
-            onChange();
-        }
-    }
+    //     if (searchBarInput.value.length >= 3) {
+    //         onChange();
+    //     }
+    // }
 
     function onChange() {
         props.onChange(searchBarInput.value);
