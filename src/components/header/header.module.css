@@ -40,3 +40,28 @@
     font-weight: 400;
     text-align: center;
 }
+
+@media (max-width: 1000px){
+   .headerContainer{
+    max-height: 300px;
+   } 
+  .headerTitleContainer {
+       display: flex;
+       margin-left: 1rem;
+       margin-top: 1rem;
+       gap: 5px;
+ 
+  }
+  .descriptionText{
+    max-width: 300px;
+    font-size: 20px;
+    line-height: normal;
+}
+  .descriptionTextContainer{
+    left: 12%;
+  }
+  .searchbarIcone{
+    width: 20px;
+  }
+
+}
