@@ -24,9 +24,22 @@ function buildPage(): void {
     document.body.appendChild(header);
 
     function onGlobalFilterChange(value: string) {
-        uiState.globalSearch = value;
+        if (uiState.debounceTimer) {
+            clearTimeout(uiState.debounceTimer);
+            uiState.debounceTimer = undefined;
+        }
 
-        filterElements();
+        uiState.debounceTimer = setTimeout(() => {
+            uiState.debounceTimer = undefined;
+
+            if (value.length < 3) {
+                uiState.globalSearch = undefined;
+            } else {
+                uiState.globalSearch = value;
+            }
+
+            filterElements();
+        }, 500);
     }
 
     const filters = Filters({

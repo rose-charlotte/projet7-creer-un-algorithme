@@ -33,3 +33,17 @@
     padding-right: 300px;
 
 }
+
+@media (max-width: 1000px){
+    .filterContainer{
+        flex-direction: column;
+        gap: 5px;
+        padding-left: 10px;
+
+    }
+    .filtersContainer{
+        gap: 90px;
+        padding: unset;
+    }
+    .numberOfRecipes{text-align: center;}
+}

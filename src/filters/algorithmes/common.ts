@@ -81,7 +81,7 @@ function getGlobalSearchRegex(item: string): RegExp {
     const searchWords = searchStringWithoutAccents.split(" ");
 
     // Transforme le tableau de mot en tableau de regex
-    const searchWordsLookaheadRegex = searchWords.map(word => `(?=.*\\b${word}\\b)`);
+    const searchWordsLookaheadRegex = searchWords.map(word => `(?=.*\\b[^\\s]*${word}[^\\s]*\\b)`);
 
     // Crée la regex finale
     const searchRegexExpression = `^${searchWordsLookaheadRegex.join("")}.*$`;
